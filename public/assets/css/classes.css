@@ -1,0 +1,69 @@
+/* Application CSS Classes */
+
+.margin-top-100  {
+	margin-top: 100px;	
+}
+
+.margin-top-20 {
+	margin-top: 20px;
+}
+
+.light-box {
+	background: #41586E;
+	color: #fff;
+	padding: 15px;
+	font-size: 0.9rem;
+	font-weight: 700;
+}
+
+.light-box a {
+	color: #AFC9DB;
+	transition: all 0.3s;
+}
+
+.light-box a:hover {
+	color: #F5F5F5;
+}
+
+.light-border {
+	border: 2px solid #F5F5F5;
+}
+
+.font-small {
+	font-size: 0.8rem;
+}
+
+.font-gray {
+	color: #747474;
+}
+
+
+/* Table */
+.tcf-table {
+	width: 100%;
+}
+
+.tcf-table th {
+	color: #565D66;
+	background: #F5F5F5;
+}
+
+.tcf-table td {
+	color: #656D78;
+}
+
+.outbound-title {
+	color: #F5F5F5;
+	background-color: #8D191C;
+}
+
+
+a.edit-btn {
+	color: #008507;
+	margin-right: 3px;
+}
+
+a.delete-btn {
+	color: #EC2323;
+	margin-left: 3px;
+}
