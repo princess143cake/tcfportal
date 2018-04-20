@@ -25,8 +25,10 @@
 			{{-- <a href="{{ URL::to('fs/outbound?d='.date('Y-m-d', strtotime($date))) }}">View full screen display</a> --}}
 			<div class="column small-12 light-box margin-top-20">
 				<span>Outbound Daily Schedule</span>
-				@if ($date == date('l F j, Y') || strtotime($date) > strtotime(date('l F j, Y')))
-					<a href="#" class="right" data-reveal-id="first_outbound_modal"><i class="fa fa-plus"></i> Create New Route</a>
+				@if( Auth::user()->is_admin )
+					@if ($date == date('l F j, Y') || strtotime($date) > strtotime(date('l F j, Y')))
+						<a href="#" class="right" data-reveal-id="first_outbound_modal"><i class="fa fa-plus"></i> Create New Route</a>
+					@endif
 				@endif
 				<span id="date-text"> - {{ $date }} &nbsp;<a href="#" title="Change Date" id="change-date-btn"><i class="fa fa-calendar"></i></a></span>
 			</div>
@@ -41,8 +43,10 @@
 						<span class="route-text">Truck: {{ $row->outbound_truck }}</span>						
 						<span class="route-text">Start Time: {{ $row->outbound_start_time ? date('h:i a', $row->outbound_start_time) : '' }}</span>
 						<span class="route-text">Region: {{ $row->outbound_region }}</span>
+						@if( Auth::user()->is_admin )
 						<span>Options: </span><a title="Edit Route" class="route-text edit-route-btn" style="display: inline" data-reveal-id="edit_route_modal" data-id="{{ $row->id }}" href="#"><i class="fa fa-pencil"></i> </a>
 						<a title="Delete Route" class="route-text delete-route-btn" style="display: inline; color: #FF6A6A" data-id="{{ $row->id }}" href="#"><i class="fa fa-times"></i> </a>
+						@endif
 					</div>
 
 					<div class="large-9 column">
@@ -70,10 +74,12 @@
 											<td>{{ $second->outbound_skids }}</td>
 											<td>{{ $second->outbound_pick_status }}</td>
 											<td class="sort-number" data-id="{{ $second->id }}">
+												@if( Auth::user()->is_admin )
 												<a class="edit-btn edit-stop-btn" data-id="{{ $second->id }}" href="#" title="Edit" data-reveal-id="edit_stop_modal"><i class="fa fa-pencil-square-o fa-lg"></i></a>
 												<a class="delete-btn delete-stop-btn" data-id="{{ $second->id }}" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>
 												<a class="up" href="#" title="Move Up"><i class="fa fa-arrow-up fa-lg"></i> </a>
 												<a class="down" href="#" title="Move Down"><i class="fa fa-arrow-down fa-lg"></i> </a>
+												@endif
 											</td>
 										</tr>
 									@endforeach

@@ -16,7 +16,7 @@
 					<span>Production Schedule</span>
 					<span id="date-text"> - {{ date("l F j, Y", strtotime($date)) }} &nbsp;<a href="#" title="Change Date" id="change-date-btn"><i class="fa fa-calendar"></i></a></span>
 
-					@if(user_access_rights(5) == "false")
+					@if(user_access_rights(5) == "false" && Auth::user()->is_admin )
 					<a href="#" class="right" data-reveal-id="addProductionModal"><i class="fa fa-plus"></i> New Entry</a>
 					<a href="#" class="right" id="weeklybtn"> Weekly view</a>
 					@endif
@@ -51,11 +51,14 @@
 							<td class="product-status">{{$value->production_status}}</td>
 							<td class="product-notes fixed-width">{{$value->production_notes}}</td>
 
-							@if (user_access_rights(1) == "true" && user_access_rights(5) == "true")	
+							{{--@if (user_access_rights(1) == "true" && user_access_rights(5) == "true")	
 								<td class="center-align"> <a production-id="{{$value->id}}" class="production-edit-status edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></td>
-							@else
-								<td class="center-align"> <a production-id="{{$value->id}}" class="production-edit edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i><a production-id="{{$value->id}}" class="production-delete delete-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i></td>
+							@else --}}
+							<td class="center-align"> 
+							@if (user_access_rights(1) == "true" && Auth::user()->is_admin )
+								<a production-id="{{$value->id}}" class="production-edit edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i><a production-id="{{$value->id}}" class="production-delete delete-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i>
 							@endif
+							</td>
 
 						</tr>
 							@endforeach

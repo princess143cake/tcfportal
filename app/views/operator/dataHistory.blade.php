@@ -33,8 +33,10 @@
 			<span>Data History</span>
 		</div>
 		<div class="column small-12 light-border">
+			@if( Auth::user()->is_admin )
 			<button id="clear-data-history-btn" class="secondary tiny margin-top-20">Clear Data History</button>
 			<button id="remove-items-btn" class="secondary tiny margin-top-20" disabled>Remove Selected Items</button>
+			@endif
 			<ul class="no-bullet">	
 				@foreach ($history as $data)
 					<li data-id="{{ $data->id }}"><input type="checkbox" class="check-li" name="delete-item" id="delete{{ $data->id }}"><label for="{{ 'delete'.$data->id }}"><span class="data-field">{{ ucwords(str_replace('_',' ',$data->field)) }}</span></label> <span class="data-value">{{ $data->value }}</span></li>	

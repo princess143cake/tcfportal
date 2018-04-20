@@ -134,12 +134,13 @@ class UserController extends BaseController {
 		$rights = $_POST['access_rights'];
 
 		if(!empty($rights)) {
+			DB::table('user_access_rights')->where('user_id', $user_id)->delete();
 			foreach($rights as $key => $value) {
-				//print_r($access_rights[$key]); exit;
-				DB::table('user_access_rights')
-				            ->where('action_rights_id', $access_rights[$key])
-				            ->where('user_id', $user_id)
-				            ->update(array('grant' => $value));
+				DB::table('user_access_rights')->insert([
+					'user_id' => $user_id,
+					'grant' => $value,
+					'action_rights_id' => $access_rights[$key]
+				]);
 			}
 		}
 	}

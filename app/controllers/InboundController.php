@@ -8,6 +8,7 @@ class InboundController extends BaseController
 	
 	function index()
 	{
+
 		if (Input::has('d')) {
 			$inbounds = Inbound::where('created_at', 'like', Input::get('d').'%')->get();
 			$date = date('l F j, Y', strtotime(Input::get('d')));
@@ -22,7 +23,10 @@ class InboundController extends BaseController
 	{
 		$fields = Input::get('fields');
 		$fields['inbound_eta'] = strtotime($fields['inbound_eta']);
-
+		$fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
+		$fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
+		$fields['inbound_pickup_appointment'] = date('Y-m-d H:i:a', strtotime( $fields['inbound_pickup_appointment']));
+		
 		//Save Data History if new
 		$this->saveDataHistory();
 
@@ -31,6 +35,7 @@ class InboundController extends BaseController
 
 		$inbound = Inbound::create($fields);
 
+		
 		if ($fields['date'] != null) {
 			$inbound->created_at = date('Y-m-d H:i:s', strtotime($fields['date']));
 			$inbound->save();
@@ -54,8 +59,12 @@ class InboundController extends BaseController
 	public function update()
 	{
 		$fields 			   = Input::get('fields');
+
 		$fields['inbound_eta'] = strtotime($fields['inbound_eta']);
 		$fields['created_at']  	   = date("Y-m-d", strtotime($fields['date']));
+		$fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
+		$fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
+		$fields['inbound_pickup_appointment'] = date('Y-m-d H:i:s', strtotime( $fields['inbound_pickup_appointment']));
 
 		unset($fields['date']);
 

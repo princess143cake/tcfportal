@@ -4,14 +4,13 @@ class MainController extends BaseController {
 
 	public function index()
 	{
-		if (Auth::user()) {
+		
+		if (Auth::check() && Auth::user()) {
 
 			$current_date = date('l M j, Y');
 			$is_admin 	  = false;
 
 			if (Auth::user()->is_admin) {
-				
-				//Admin view
 				$is_admin = true;
 			}
 
@@ -28,6 +27,8 @@ class MainController extends BaseController {
 		} else {
 			return view('index');
 		}
+		
+		
 	}
 
 	public function login()
@@ -40,6 +41,7 @@ class MainController extends BaseController {
 		if ($user['auth'] == 'valid') {
 			
 			Auth::login($user);
+
 			return Redirect::to('/');
 
 		} elseif ($user['auth'] == 'inactive') {

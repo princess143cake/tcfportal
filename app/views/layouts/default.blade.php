@@ -1,5 +1,4 @@
 @include('layouts.header')
-
 <div id="page-wrap"> {{-- Page Wrap Starts --}}
     <div class="off-canvas-wrap" data-offcanvas>
             <div class="inner-wrap">
@@ -22,7 +21,7 @@
                         @if(user_access_rights(4) == "true")
                         <li><a href="{{ URL::to('data_history') }}" class="{{ Request::segment(1) == 'data_history' ? 'active-side-nav' : '' }}"><i class="fa fa-history"></i> <span>Data History</span></a></li>
                         @endif
-                        @if(Auth::user()->is_admin)
+                        @if(Auth::check() && Auth::user()->is_admin)
                         <li><a href="{{ URL::to('manage_user') }}" class="{{ Request::segment(1) == 'manage_user' ? 'active-side-nav' : '' }}"><i class="fa fa-user"></i> <span>Manage User</span></a></li>
                         @endif
                     </ul>
@@ -34,7 +33,7 @@
                         <a href="{{ URL::to('/') }}">TILLSONBURG CUSTOM FOODS</a>
                     </div>
                     <div id="user-display" class="right">
-                        <a href="#" data-dropdown="user-menu" aria-controls="user-menu" aria-expanded="false" class="dropdown">{{ Auth::User()->name }} <i class="fa fa-sort-down"></i></a>
+                        <a href="#" data-dropdown="user-menu" aria-controls="user-menu" aria-expanded="false" class="dropdown">{{ Auth::check() ? Auth::User()->name : '' }} <i class="fa fa-sort-down"></i></a>
                         <ul id="user-menu" data-dropdown-content class="f-dropdown" aria-hidden="true">
                           <li class="user-settings"><a href="#"><i class="fa fa-cog"></i>&nbsp;&nbsp; Settings</a></li>
                           <li><a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i>&nbsp;&nbsp; Log Out</a></li>
@@ -59,7 +58,7 @@
                         @if(user_access_rights(4) == "true")
                         <li><a href="{{ URL::to('data_history') }}" class="{{ Request::segment(1) == 'data_history' ? 'active-side-nav' : '' }}"><i class="fa fa-history"></i> <span>Data History</span></a></li>
                         @endif
-                        @if(Auth::user()->is_admin)
+                        @if( Auth::check() && Auth::user()->is_admin)
                         <li><a href="{{ URL::to('manage_user') }}" class="{{ Request::segment(1) == 'manage_user' ? 'active-side-nav' : '' }}"><i class="fa fa-user"></i> <span>Manage User</span></a></li>
                         @endif
                     </ul>
@@ -79,7 +78,7 @@
     <h2 id="modalTitle">User settings</h2>
     <form id="user-form">
         {{ Form::label('user_username', 'Username') }}
-        {{ Form::text('user_username', Auth::user()->username, ['placeholder' => 'Username','id' => 'user-name','disabled' => 'disabled']) }}
+        {{ Form::text('user_username', Auth::check() ? Auth::user()->username : '', ['placeholder' => 'Username','id' => 'user-name','disabled' => 'disabled']) }}
 
         {{ Form::label('user_password_settings', 'Enter New Password') }}
         {{ Form::password('user_password_settings', '', ['placeholder' => 'Password','id' => 'password']) }}
