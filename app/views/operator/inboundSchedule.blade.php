@@ -34,7 +34,7 @@
 							<th>Product</th>
 							<th>KG</th>
 							<th>SKIDS</th>
-							<th>Container #</th>
+							{{-- <th>Container #</th>
 							<th>Supplier</th>
 							<th>Steamship Provider</th>
 							<th>Arrival To Port</th>
@@ -44,7 +44,7 @@
 							<th>Pickup Appointment</th>
 							<th>Return Location</th>
 							<th>RV #</th>
-							<th>Pickup #</th>
+							<th>Pickup #</th> --}}
 							<th class="point" data-sort="int">ETA <i class="fa fa-sort"></i></th>
 							<th>Actions</th>
 						</tr>
@@ -58,7 +58,7 @@
 								<td class="fixed-width-outbound">{{ $inbound->inbound_product }}</td>
 								<td>{{ $inbound->inbound_kg }}</td>
 								<td>{{ $inbound->inbound_cases }}</td>
-								<td>{{ $inbound->inbound_container_number }}</td>
+								{{-- <td>{{ $inbound->inbound_container_number }}</td>
 								<td>{{ $inbound->inbound_supplier}}</td>
 								<td>{{ $inbound->inbound_steamship_provider }}</td>
 								<td>{{ date('d/m/Y', strtotime($inbound->inbound_arrival_to_port) ) }}</td>
@@ -69,8 +69,10 @@
 								<td>{{ $inbound->inbound_return_location }}</td>
 								<td>{{ $inbound->inbound_rv_number }}</td>
 								<td>{{ $inbound->inbound_pickup_number }}</td>
-								<td>{{ $inbound->inbound_eta ? date('h:i a', $inbound->inbound_eta) : '' }}</td>
-								<td data-id="{{ $inbound->id }}">
+								
+								 --}}
+								 <td>{{ $inbound->inbound_eta ? date('h:i a', $inbound->inbound_eta) : '' }}</td>
+								 <td data-id="{{ $inbound->id }}">
 									@if( Auth::user()->is_admin )
 									<a class="edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
 									<a class="delete-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>
@@ -110,7 +112,7 @@
 				{{ Form::label('inbound_eta', 'ETA') }}
 				{{ Form::text('inbound_eta', '', ['placeholder' => 'ETA']) }}
 
-				{{ Form::label('inbound_container_number', 'Container Number') }}
+				{{-- {{ Form::label('inbound_container_number', 'Container Number') }}
 				{{ Form::text('inbound_container_number', '', ['placeholder' => 'Container Number']) }}
 
 				{{ Form::label('inbound_supplier', 'Supplier') }}
@@ -144,7 +146,7 @@
 				{{ Form::number('inbound_rv_number', '', ['placeholder' => 'RV #']) }}
 				
 				{{ Form::label('inbound_pickup_number', 'Pickup #') }}
-				{{ Form::number('inbound_pickup_number', '', ['placeholder' => 'Pickup #']) }}
+				{{ Form::number('inbound_pickup_number', '', ['placeholder' => 'Pickup #']) }} --}}
 				<a href="#" id="create-btn" class="button expand" data-action="create"></a>
 			</form>
 		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
@@ -195,17 +197,17 @@
 				inbound_eta: $('input[name="inbound_eta"]').val(),
 				user_id: '{{ Auth::user()->id }}',
 				date: '{{ $date }}',
-				inbound_container_number: $('input[name="inbound_container_number"]').val(),
-				inbound_supplier: $('input[name="inbound_supplier"]').val(),
-				inbound_steamship_provider: $('input[name="inbound_steamship_provider"]').val(),
-				inbound_arrival_to_port: $('input[name="inbound_arrival_to_port"]').val(),
-				inbound_arrival_to_destination: $('input[name="inbound_arrival_to_destination"]').val(),
-				inbound_terminal_handling_fee_paid: $('input[name="inbound_terminal_handling_fee_paid"]:checked').val(),
-				inbound_pickup_location: $('input[name="inbound_pickup_location"]').val(),
-				inbound_pickup_appointment: $('input[name="inbound_pickup_appointment"]').val(),
-				inbound_return_location: $('input[name="inbound_return_location"]').val(),
-				inbound_rv_number: $('input[name="inbound_rv_number"]').val(),
-				inbound_pickup_number: $('input[name="inbound_pickup_number"]').val(),
+				// inbound_container_number: $('input[name="inbound_container_number"]').val(),
+				// inbound_supplier: $('input[name="inbound_supplier"]').val(),
+				// inbound_steamship_provider: $('input[name="inbound_steamship_provider"]').val(),
+				// inbound_arrival_to_port: $('input[name="inbound_arrival_to_port"]').val(),
+				// inbound_arrival_to_destination: $('input[name="inbound_arrival_to_destination"]').val(),
+				// inbound_terminal_handling_fee_paid: $('input[name="inbound_terminal_handling_fee_paid"]:checked').val(),
+				// inbound_pickup_location: $('input[name="inbound_pickup_location"]').val(),
+				// inbound_pickup_appointment: $('input[name="inbound_pickup_appointment"]').val(),
+				// inbound_return_location: $('input[name="inbound_return_location"]').val(),
+				// inbound_rv_number: $('input[name="inbound_rv_number"]').val(),
+				// inbound_pickup_number: $('input[name="inbound_pickup_number"]').val(),
 			};
 
 			console.log( fields );
@@ -236,17 +238,17 @@
 								'<td>'+fields.inbound_kg+'</td>' +
 								'<td>'+fields.inbound_cases+'</td>' +
 
-								'<td>'+fields.inbound_container_number+'</td>' +
-								'<td>'+fields.inbound_supplier+'</td>' +
-								'<td>'+fields.inbound_steamship_provider+'</td>' +
-								'<td>'+moment(fields.inbound_arrival_to_port).format('DD/MM/YYYY')+'</td>' +
-								'<td>'+moment(fields.inbound_arrival_to_destination).format('DD/MM/YYYY')+'</td>' +
-								'<td>'+ (fields.inbound_terminal_handling_fee_paid ? 'Yes' : 'No') +'</td>' +
-								'<td>'+fields.inbound_pickup_location+'</td>' +
-								'<td>'+moment(fields.inbound_pickup_appointment).format('DD/MM/YYYY hh:mm a') +'</td>' +
-								'<td>'+fields.inbound_return_location+'</td>' +
-								'<td>'+fields.inbound_rv_number+'</td>' +
-								'<td>'+fields.inbound_pickup_number+'</td>' +
+								// '<td>'+fields.inbound_container_number+'</td>' +
+								// '<td>'+fields.inbound_supplier+'</td>' +
+								// '<td>'+fields.inbound_steamship_provider+'</td>' +
+								// '<td>'+moment(fields.inbound_arrival_to_port).format('DD/MM/YYYY')+'</td>' +
+								// '<td>'+moment(fields.inbound_arrival_to_destination).format('DD/MM/YYYY')+'</td>' +
+								// '<td>'+ (fields.inbound_terminal_handling_fee_paid ? 'Yes' : 'No') +'</td>' +
+								// '<td>'+fields.inbound_pickup_location+'</td>' +
+								// '<td>'+moment(fields.inbound_pickup_appointment).format('DD/MM/YYYY hh:mm a') +'</td>' +
+								// '<td>'+fields.inbound_return_location+'</td>' +
+								// '<td>'+fields.inbound_rv_number+'</td>' +
+								// '<td>'+fields.inbound_pickup_number+'</td>' +
 
 								'<td>'+fields.inbound_eta+'</td>' +
 								'<td data-id="'+response.id+'">' +
@@ -281,17 +283,17 @@
 								'<td>'+fields.inbound_kg+'</td>' +
 								'<td>'+fields.inbound_cases+'</td>' +
 
-								'<td>'+fields.inbound_container_number+'</td>' +
-								'<td>'+fields.inbound_supplier+'</td>' +
-								'<td>'+fields.inbound_steamship_provider+'</td>' +
-								'<td>'+moment(fields.inbound_arrival_to_port).format('DD/MM/YYYY')+'</td>' +
-								'<td>'+moment(fields.inbound_arrival_to_destination).format('DD/MM/YYYY')+'</td>' +
-								'<td>'+ (fields.inbound_terminal_handling_fee_paid ? 'Yes' : 'No') +'</td>' +
-								'<td>'+fields.inbound_pickup_location+'</td>' +
-								'<td>'+moment(fields.inbound_pickup_appointment).format('DD/MM/YYYY hh:mm a') +'</td>' +
-								'<td>'+fields.inbound_return_location+'</td>' +
-								'<td>'+fields.inbound_rv_number+'</td>' +
-								'<td>'+fields.inbound_pickup_number+'</td>' +
+								// '<td>'+fields.inbound_container_number+'</td>' +
+								// '<td>'+fields.inbound_supplier+'</td>' +
+								// '<td>'+fields.inbound_steamship_provider+'</td>' +
+								// '<td>'+moment(fields.inbound_arrival_to_port).format('DD/MM/YYYY')+'</td>' +
+								// '<td>'+moment(fields.inbound_arrival_to_destination).format('DD/MM/YYYY')+'</td>' +
+								// '<td>'+ (fields.inbound_terminal_handling_fee_paid ? 'Yes' : 'No') +'</td>' +
+								// '<td>'+fields.inbound_pickup_location+'</td>' +
+								// '<td>'+moment(fields.inbound_pickup_appointment).format('DD/MM/YYYY hh:mm a') +'</td>' +
+								// '<td>'+fields.inbound_return_location+'</td>' +
+								// '<td>'+fields.inbound_rv_number+'</td>' +
+								// '<td>'+fields.inbound_pickup_number+'</td>' +
 
 								'<td>'+fields.inbound_eta+'</td>' +
 								'<td data-id="'+response.id+'">' +
@@ -354,17 +356,17 @@
 				$('input[name="inbound_kg"]').val(response.inbound_kg);
 				$('input[name="inbound_eta"]').val(response.inbound_eta);
 				$('#update-btn').attr('data-id', response.id);
-				$('input[name="inbound_container_number"]').val( response.inbound_container_number ) ;
-				$('input[name="inbound_supplier"]').val( response.inbound_supplier );
-				$('input[name="inbound_steamship_provider"]').val( response.inbound_steamship_provider );
-				$('input[name="inbound_arrival_to_port"]').val( response.inbound_arrival_to_port );
-				$('input[name="inbound_arrival_to_destination"]').val( response.inbound_arrival_to_destination );
-				$('input[name="inbound_terminal_handling_fee_paid"][value="'+response.inbound_terminal_handling_fee_paid+'"]').prop("checked", true);;
-				$('input[name="inbound_pickup_location"]').val( response.inbound_pickup_location );
-				$('input[name="inbound_pickup_appointment"]').val( response.inbound_pickup_appointment );
-				$('input[name="inbound_return_location"]').val( response.inbound_return_location );
-				$('input[name="inbound_rv_number"]').val( response.inbound_rv_number );
-				$('input[name="inbound_pickup_number"]').val( response.inbound_pickup_number );
+				// $('input[name="inbound_container_number"]').val( response.inbound_container_number ) ;
+				// $('input[name="inbound_supplier"]').val( response.inbound_supplier );
+				// $('input[name="inbound_steamship_provider"]').val( response.inbound_steamship_provider );
+				// $('input[name="inbound_arrival_to_port"]').val( response.inbound_arrival_to_port );
+				// $('input[name="inbound_arrival_to_destination"]').val( response.inbound_arrival_to_destination );
+				// $('input[name="inbound_terminal_handling_fee_paid"][value="'+response.inbound_terminal_handling_fee_paid+'"]').prop("checked", true);;
+				// $('input[name="inbound_pickup_location"]').val( response.inbound_pickup_location );
+				// $('input[name="inbound_pickup_appointment"]').val( response.inbound_pickup_appointment );
+				// $('input[name="inbound_return_location"]').val( response.inbound_return_location );
+				// $('input[name="inbound_rv_number"]').val( response.inbound_rv_number );
+				// $('input[name="inbound_pickup_number"]').val( response.inbound_pickup_number );
 			}
 		});
 

@@ -106,6 +106,7 @@ Route::filter('access_rights', function($route,$request){
     $access_rights = array("production" 	     => 1,
     					   "outbound_schedule"	 => 2,
     					   "inbound_schedule"	 => 3,
+    					   "inbound_shipping"	 => 6,
     					   "data_history"		 => 4,
     					   "production-status"   => 5
     					  );

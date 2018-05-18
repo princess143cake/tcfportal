@@ -23,9 +23,9 @@ class InboundController extends BaseController
 	{
 		$fields = Input::get('fields');
 		$fields['inbound_eta'] = strtotime($fields['inbound_eta']);
-		$fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
-		$fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
-		$fields['inbound_pickup_appointment'] = date('Y-m-d H:i:a', strtotime( $fields['inbound_pickup_appointment']));
+		// $fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
+		// $fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
+		// $fields['inbound_pickup_appointment'] = date('Y-m-d H:i:a', strtotime( $fields['inbound_pickup_appointment']));
 		
 		//Save Data History if new
 		$this->saveDataHistory();
@@ -62,9 +62,9 @@ class InboundController extends BaseController
 
 		$fields['inbound_eta'] = strtotime($fields['inbound_eta']);
 		$fields['created_at']  	   = date("Y-m-d", strtotime($fields['date']));
-		$fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
-		$fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
-		$fields['inbound_pickup_appointment'] = date('Y-m-d H:i:s', strtotime( $fields['inbound_pickup_appointment']));
+		// $fields['inbound_arrival_to_port'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_port'] ));
+		// $fields['inbound_arrival_to_destination'] = date('Y-m-d', strtotime( $fields['inbound_arrival_to_destination'] ));
+		// $fields['inbound_pickup_appointment'] = date('Y-m-d H:i:s', strtotime( $fields['inbound_pickup_appointment']));
 
 		unset($fields['date']);
 

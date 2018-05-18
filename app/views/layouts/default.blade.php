@@ -18,6 +18,11 @@
                         @if(user_access_rights(3) == "true")
                         <li><a href="{{ URL::to('inbound_schedule') }}" class="{{ Request::segment(1) == 'inbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Schedule</span></a></li>
                         @endif
+
+                        @if(user_access_rights(6) == "true")
+                        <li><a href="{{ URL::to('inbound_shipping') }}" class="{{ Request::segment(1) == 'inbound_shipping' ? 'active-side-nav' : '' }}"><i class="fa fa-bars"></i> <span>Inbound Shipping</span></a></li>
+                        @endif
+
                         @if(user_access_rights(4) == "true")
                         <li><a href="{{ URL::to('data_history') }}" class="{{ Request::segment(1) == 'data_history' ? 'active-side-nav' : '' }}"><i class="fa fa-history"></i> <span>Data History</span></a></li>
                         @endif
@@ -55,7 +60,11 @@
                         @if(user_access_rights(3) == "true")
                         <li><a href="{{ URL::to('inbound_schedule') }}" class="{{ Request::segment(1) == 'inbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Schedule</span></a></li>
                         @endif
-                        @if(user_access_rights(4) == "true")
+                        @if(user_access_rights(6) == "true")
+                        <li><a href="{{ URL::to('inbound_shipping') }}" class="{{ Request::segment(1) == 'inbound_shipping' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Shipping</span></a></li>
+                        @endif
+
+                        @if(user_access_rights(5) == "true")
                         <li><a href="{{ URL::to('data_history') }}" class="{{ Request::segment(1) == 'data_history' ? 'active-side-nav' : '' }}"><i class="fa fa-history"></i> <span>Data History</span></a></li>
                         @endif
                         @if( Auth::check() && Auth::user()->is_admin)
