@@ -33,13 +33,19 @@ Route::get('create_access_rights', function()
                     array('id'     => 3,
                           'title'  => 'inbound_schedule',
                           'action' => 'production'),
+
+                    
                     array('id'     => 4,
-                          'title'  => 'date_history',
-                          'action' => 'history'),
-                    array('id'     => 5,
                           'title'  => 'production-status',
                           'action' => 'production'
-                         )
+                         ),
+                    array('id'     => 5,
+                          'title'  => 'date_history',
+                          'action' => 'history'),
+                    array('id'     => 6,
+                          'title'  => 'inbound_shipping',
+                          'action' => 'production'),
+
                     );
 
     foreach($rights as $key => $value) {

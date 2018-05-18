@@ -103,6 +103,7 @@ class UserController extends BaseController {
 		$access_rights = array('production' => 1,
 							   'outbound' 	=> 2,
 							   'inbound' 	=> 3,
+							   'inboundshipping' 	=> 6,
 							   'history'	=> 4,
 							   'production-status' 	=> 5
 							  );
@@ -127,6 +128,7 @@ class UserController extends BaseController {
 		$access_rights = array('production' => 1,
 							   'outbound' 	=> 2,
 							   'inbound' 	=> 3,
+							   'inboundshipping'	=> 6,
 							   'history'	=> 4,
 							   'production-status' => 5
 							  );

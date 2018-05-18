@@ -26,6 +26,13 @@ Route::group(['before' => 'auth'], function() {
 	Route::post('inbound_schedule/edit', ['before' => 'csrf', 'uses' => 'InboundController@edit']);
 	Route::post('inbound_schedule/update', ['before' => 'csrf', 'uses' => 'InboundController@update']);
 
+	//Inbound Shipping
+	Route::get('inbound_shipping', ['before' => 'access_rights', 'uses' => 'InboundShippingController@index']);
+	Route::post('inbound_shipping/insert', ['before' => 'csrf', 'uses' => 'InboundShippingController@insert']);
+	Route::post('inbound_shipping/delete', ['before' => 'csrf', 'uses' => 'InboundShippingController@delete']);
+	Route::post('inbound_shipping/edit', ['before' => 'csrf', 'uses' => 'InboundShippingController@edit']);
+	Route::post('inbound_shipping/update', ['before' => 'csrf', 'uses' => 'InboundShippingController@update']);
+
 	//Data History Api Request
 	Route::post('api/getDataHistory', 'ApiController@getDataHistory');
 	Route::get('data_history', ['before' => 'access_rights', 'uses' => 'MainController@data_history']);

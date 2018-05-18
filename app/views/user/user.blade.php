@@ -73,8 +73,10 @@
 			<label><input id="privilege-production" type="checkbox" name="privilege-production" class="user-privilege" value=""/> Production Schedule</label>
 			<label><input id="privilege-outbound" type="checkbox" name="privilege-outbound" class="user-privilege" value=""/> Outbound Schedule</label>
 			<label><input id="privilege-inbound" type="checkbox" name="privilege-inbound" class="user-privilege" value=""/> Inbound Schedule</label>
+			<label><input id="privilege-inboundshipping" type="checkbox" name="privilege-inboundshipping" class="user-privilege" value=""/> Inbound Shipping</label>
 			<label><input id="privilege-history" type="checkbox" name="privilege-history" class="user-privilege" value=""/> Data History</label>
 			<label><input id="privilege-status" type="checkbox" name="privilege-status" class="privilege-status" value="production-status"/> Production Status(Only)</label>
+
 
 			<div class="row">
 				<div class="small-12 center-align msg-alert">
@@ -108,6 +110,7 @@
 			<label><input id="privilege-production-edit" type="checkbox" name="privilege-production-edit" class="user-privilege" value=""/> Production Schedule</label>
 			<label><input id="privilege-outbound-edit" type="checkbox" name="privilege-outbound-edit" class="user-privilege" value=""/> Outbound Schedule</label>
 			<label><input id="privilege-inbound-edit" type="checkbox" name="privilege-inbound-edit" class="user-privilege" value=""/> Inbound Schedule</label>
+			<label><input id="privilege-inboundshipping-edit" type="checkbox" name="privilegeinbound-shipping-edit" class="user-privilege" value=""/> Inbound Shipping</label>
 			<label><input id="privilege-history-edit" type="checkbox" name="privilege-history-edit" class="user-privilege" value=""/> Data History</label>
 			<label><input id="privilege-status-edit" type="checkbox" name="privilege-status-edit" class="user-privilege" value=""/> Production Status(Only)</label>
 
@@ -141,6 +144,7 @@
 				privilege_production = $("#privilege-production").prop("checked"),
 				privilege_outbound   = $("#privilege-outbound").prop("checked"),
 				privilege_inbound    = $("#privilege-inbound").prop("checked"),
+				privilage_inbound_shipping    = $("#privilege-inboundshipping").prop("checked"),
 				privilege_history    = $("#privilege-history").prop("checked"),
 				privilege_status 	 = $(".privilege-status").prop("checked")
 			;
@@ -176,6 +180,7 @@
 					privilege_object['production'] = privilege_production;
 					privilege_object['outbound']   = privilege_outbound;
 					privilege_object['inbound']    = privilege_inbound;
+					privilege_object['inboundshipping']    = privilage_inbound_shipping;
 					privilege_object['history']    = privilege_history;
 					privilege_object['production-status'] = privilege_status;
 
@@ -271,6 +276,7 @@
 				privilege_production = $("#privilege-production-edit").prop("checked"),
 				privilege_outbound   = $("#privilege-outbound-edit").prop("checked"),
 				privilege_inbound    = $("#privilege-inbound-edit").prop("checked"),
+				privilage_inbound_shipping    = $("#privilege-inboundshipping-edit").prop("checked"),
 				privilege_history    = $("#privilege-history-edit").prop("checked"),
 				privilege_production_status = $("#privilege-status-edit").prop("checked"),
 				privilege_object 	 = {}
@@ -296,6 +302,7 @@
 					privilege_object['production'] = privilege_production;
 					privilege_object['outbound']   = privilege_outbound;
 					privilege_object['inbound']    = privilege_inbound;
+					privilege_object['inboundshipping']    = privilage_inbound_shipping;
 					privilege_object['history']    = privilege_history;
 					privilege_object['production-status']    = privilege_production_status;
 
