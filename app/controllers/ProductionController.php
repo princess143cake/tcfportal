@@ -133,7 +133,7 @@ class ProductionController extends BaseController {
 
 		$productions = Productions::find($_POST['fields']['id']);
 
-		$productions->production_date    	  = $_POST['fields']['production_date'];
+		$productions->production_date    	  = date("Y-m-d", strtotime($_POST['fields']['production_date']));
 		$productions->production_product 	  = $_POST['fields']['production_product'];
 		$productions->production_customer 	  = $_POST['fields']['production_customer'];
 		$productions->production_pack_size    = $_POST['fields']['production_pack_size'];
