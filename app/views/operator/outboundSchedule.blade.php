@@ -40,7 +40,8 @@
 						<h5>Route</h5>
 						<span class="route-text">Carrier: {{ $row->outbound_carrier }}</span>						
 						<span class="route-text">Driver: {{ $row->outbound_driver }}</span>						
-						<span class="route-text">Truck: {{ $row->outbound_truck }}</span>						
+						<span class="route-text">Truck: {{ $row->outbound_truck }}</span>
+						<span class="route-text">Trailer Number: {{ $row->outbound_trailer_number }}</span>						
 						<span class="route-text">Start Time: {{ $row->outbound_start_time ? date('h:i a', $row->outbound_start_time) : '' }}</span>
 						<span class="route-text">Region: {{ $row->outbound_region }}</span>
 						@if( Auth::user()->is_admin )
@@ -108,6 +109,9 @@
 				{{ Form::label('outbound_truck', 'Truck') }}
 				{{ Form::text('outbound_truck', '', ['placeholder' => 'Truck', 'class' => 'repetitive']) }}
 
+				{{ Form::label('outbound_trailer_number', 'Trailer Number') }}
+				{{ Form::text('outbound_trailer_number', '', ['placeholder' => 'Trailer Number', 'class' => 'repetitive']) }}
+
 				{{ Form::label('outbound_region', 'Region') }}
 				{{ Form::text('outbound_region', '', ['placeholder' => 'Region', 'class' => 'repetitive']) }}
 
@@ -130,6 +134,9 @@
 
 			{{ Form::label('edit_outbound_truck', 'Truck') }}
 			{{ Form::text('edit_outbound_truck', '', ['placeholder' => 'Truck', 'class' => 'repetitive']) }}
+
+			{{ Form::label('edit_outbound_trailer_number', 'Trailer Number') }}
+			{{ Form::text('edit_outbound_trailer_number', '', ['placeholder' => 'Trailer Number', 'class' => 'repetitive']) }}
 
 			{{ Form::label('edit_outbound_region', 'Region') }}
 			{{ Form::text('edit_outbound_region', '', ['placeholder' => 'Region', 'class' => 'repetitive']) }}
@@ -230,6 +237,7 @@
 			carrier = $('input[name="outbound_carrier"]'),
 			driver  = $('input[name="outbound_driver"]'),
 			truck  = $('input[name="outbound_truck"]'),
+			trailer  = $('input[name="outbound_trailer_number"]'),
 			start_time  = $('input[name="outbound_start_time"]');
 			region      = $('input[name="outbound_region"]');
 
@@ -237,6 +245,7 @@
 				outbound_carrier: carrier.val(),
 				outbound_driver: driver.val(),
 				outbound_truck: truck.val(),
+				outbound_trailer_number: trailer.val(),
 				outbound_start_time: start_time.val(),
 				outbound_region: region.val(),
 				user_id: '{{ Auth::user()->id }}',
@@ -303,6 +312,7 @@
 					$('input[name="edit_outbound_carrier"]').val(response.outbound_carrier);
 					$('input[name="edit_outbound_driver"]').val(response.outbound_driver);
 					$('input[name="edit_outbound_truck"]').val(response.outbound_truck);
+					$('input[name="edit_outbound_trailer_number"]').val(response.outbound_trailer_number);
 					$('input[name="edit_outbound_start_time"]').val(response.outbound_start_time);
 					$('input[name="edit_outbound_region"]').val(response.outbound_region);
 					$('#update-btn').attr('data-id', response.id);
@@ -326,6 +336,7 @@
 				outbound_carrier: $('input[name="edit_outbound_carrier"]').val(),
 				outbound_driver: $('input[name="edit_outbound_driver"]').val(),
 				outbound_truck: $('input[name="edit_outbound_truck"]').val(),
+				outbound_trailer_number: $('input[name="edit_outbound_trailer_number"]').val(),
 				outbound_start_time: $('input[name="edit_outbound_start_time"]').val(),
 				outbound_region: $('input[name="edit_outbound_region"]').val()
 			};

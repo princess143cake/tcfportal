@@ -13,7 +13,10 @@ class Productions extends Eloquent {
     					   'shift',
     					   'status',
     					   'notes',
-    					   'user_id'];
+    					   'user_id',
+                           'customer_po',
+                           'delivery_option'
+                        ];
 
 }
 

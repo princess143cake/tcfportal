@@ -13,7 +13,8 @@ class Outbound extends Eloquent
 		'outbound_truck',
 		'outbound_start_time',
 		'user_id',
-		'outbound_region'
+		'outbound_region',
+		'outbound_trailer_number'
 	];
 
 	public function secondphase()

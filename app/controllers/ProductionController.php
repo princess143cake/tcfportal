@@ -106,6 +106,8 @@ class ProductionController extends BaseController {
 		$productions->production_shift 	      = $_POST['fields']['production_shift'];
 		$productions->production_status 	  = $_POST['fields']['production_status'];
 		$productions->production_notes 	      = $_POST['fields']['production_notes'];
+		$productions->production_customer_po  = $_POST['fields']['production_customer_po'];
+		$productions->production_delivery_option   = $_POST['fields']['production_delivery_option'];
 		
 		//Save Data History if new
 		$this->saveDataHistory();

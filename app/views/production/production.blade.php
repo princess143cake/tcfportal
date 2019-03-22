@@ -27,6 +27,7 @@
 						<tr>
 							<th class="align-left">PRODUCT</th>
 							<th class="align-left">CUSTOMER</th>
+							<th class="align-left">CUSTOMER PO</th>
 							<th class="align-left">PACK SIZE</th>
 							<th class="align-left">PROD SIZE</th>
 							<th class="align-left">CASES</th>
@@ -34,6 +35,7 @@
 							<th class="align-left">SHIFT</th>
 							<th class="align-left">STATUS</th>
 							<th class="align-left">NOTES</th>
+							<th class="align-left">Delivery</th>
 							<th class="align-left">ACTION</th>
 						</tr>
 					</thead>
@@ -43,6 +45,7 @@
 						<tr id="row-id-{{$value->id}}">
 							<td class="product-product fixed-width">{{$value->production_product}}</td>
 							<td class="product-customer fixed-width">{{$value->production_customer}}</td>
+							<td class="product-customer-po fixed-width">{{$value->production_customer_po}}</td>
 							<td class="product-pack-size">{{$value->production_pack_size}}</td>
 							<td class="product-size">{{$value->production_product_size}}</td>
 							<td class="product-cases">{{$value->production_cases}}</td>
@@ -50,7 +53,7 @@
 							<td class="product-shift">{{$value->production_shift}}</td>
 							<td class="product-status">{{$value->production_status}}</td>
 							<td class="product-notes fixed-width">{{$value->production_notes}}</td>
-
+							<td class="product-delivery-option fixed-width">{{$value->production_delivery_option}}</td>
 							{{--@if (user_access_rights(1) == "true" && user_access_rights(5) == "true")	
 								<td class="center-align"> <a production-id="{{$value->id}}" class="production-edit-status edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></td>
 							@else --}}
@@ -83,10 +86,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Date :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Date</label>
 									</div>
-									<div class="small-9 columns daily-date daily-date-edit">
+									<div class="small-8 columns daily-date daily-date-edit">
 										<span>{{date("Y-m-d", strtotime($date))}}</span> &nbsp;<a href="#" title="Change Date" id="change-date-btn-view"><i class="fa fa-calendar"></i></a>
 									</div>
 								</div>
@@ -95,10 +98,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Product :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Product</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input repetitive" name="production_product" type="text" id="product" placeholder="Product">
 									</div>
 								</div>
@@ -107,10 +110,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Customer :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Customer</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input repetitive" name="production_customer" type="text" id="customer" placeholder="Customer">
 									</div>
 								</div>
@@ -119,10 +122,22 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Pack Size :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Customer PO</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
+										<input class="production-input repetitive" name="production_customer_po" type="text" id="production_customer_po" placeholder="Customer PO">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 columns">
+								<div class="row">
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Pack Size</label>
+									</div>
+									<div class="small-8 columns">
 										<input class="production-input repetitive" name="production_pack_size" type="text" id="pack_size" placeholder="Pack Size">
 									</div>
 								</div>
@@ -131,24 +146,38 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Product Size :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Product Size</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input repetitive" name="production_product_size" type="text" id="product_size" placeholder="Product Size">
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="small-12 columns">
+								<div class="small-12 columns">
+									<div class="grid-x grid-padding-x">
+							  			<fieldset class="large-12 cell">
+							    			<legend>Delivery Option</legend>
+							    			<input type="radio" name="production_delivery_option" value="pickup" id="pick_up" required><label for="pick_up">Pick Up</label>
+							    			<input type="radio" name="production_delivery_option" value="delivery" id="delivery" checked><label for="delivery">Delivery</label>
+							  			</fieldset>
+									</div>
+								</div>
+							</div>
+							
+						</div>
 					</div>
-					<div class="column small-12 small-centered large-6 large-uncentered">
+					<div class="column small-12 small-centered large-6 large-uncentered">						
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline"># of Cases :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline"># of Cases</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input" type="number" id="cases" placeholder="# of Cases">
 									</div>
 								</div>
@@ -157,10 +186,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline"># of Skids :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline"># of Skids</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input" type="number" id="skids" placeholder="# of Skids">
 									</div>
 								</div>
@@ -169,10 +198,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Shift :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Shift</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 								        <select id="shift">
 								          	<option value="Day">Day</option>
 								          	<option value="Night">Night</option>
@@ -185,10 +214,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Status :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Status</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 								        <select id="status">
 								          	<option value="Pending">Pending</option>
 								          	<option value="Completed">Completed</option>
@@ -201,15 +230,15 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Notes :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Notes</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="production-input" type="text" id="notes" placeholder="Notes">
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>						
 					</div>
 				</div>
 
@@ -242,10 +271,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Date :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Date</label>
 									</div>
-									<div class="small-9 columns daily-date daily-date-edit">
+									<div class="small-8 columns daily-date daily-date-edit">
 										<span>{{date("Y-m-d", strtotime($date))}}</span> &nbsp;<a href="#" title="Change Date" id="change-date-btn-edit"><i class="fa fa-calendar"></i></a>
 									</div>
 								</div>
@@ -254,10 +283,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Product :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Product</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input repetitive" name="edit_production_product" type="text" id="edit-product" placeholder="Product">
 									</div>
 								</div>
@@ -266,10 +295,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Customer :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Customer</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input repetitive" name="edit_production_customer" type="text" id="edit-customer" placeholder="Customer">
 									</div>
 								</div>
@@ -278,10 +307,22 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Pack Size :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Customer PO</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
+										<input class="edit-production-input repetitive" name="edit_production_customer_po" type="text" id="edit_production_customer_po" placeholder="Customer PO">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 columns">
+								<div class="row">
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Pack Size</label>
+									</div>
+									<div class="small-8 columns">
 										<input class="edit-production-input repetitive" name="edit_production_pack_size" type="text" id="edit-pack_size" placeholder="Pack Size">
 									</div>
 								</div>
@@ -290,24 +331,38 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Product Size :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Product Size</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input repetitive" name="edit_production_product_size" type="text" id="edit-product_size" placeholder="Product Size">
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 columns">
+								<div class="small-12 columns">
+									<div class="grid-x grid-padding-x">
+							  			<fieldset class="large-12 cell">
+							    			<legend>Delivery Option</legend>
+							    			<input type="radio" name="edit_production_delivery_option" value="pickup" id="edit_pick_up" required><label for="edit_pick_up">Pick Up</label>
+							    			<input type="radio" name="edit_production_delivery_option" value="delivery" id="edit_delivery" checked><label for="edit_delivery">Delivery</label>
+							  			</fieldset>
+									</div>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 					<div class="column small-12 small-centered large-6 large-uncentered">
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline"># of Cases :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline"># of Cases</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input" type="text" id="edit-cases" placeholder="# of Cases">
 									</div>
 								</div>
@@ -316,10 +371,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline"># of Skids :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline"># of Skids</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input" type="text" id="edit-skids" placeholder="# of Skids">
 									</div>
 								</div>
@@ -328,10 +383,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Shift :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Shift</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 
 						        		<select id="edit-shift">
 								          	<option value="Day">Day</option>
@@ -346,10 +401,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Status :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Status</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 
 						        		<select id="edit-status">
 								          	<option value="Pending">Pending</option>
@@ -364,10 +419,10 @@
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="row">
-									<div class="small-3 columns">
-										<label for="right-label" class="right inline">Notes :</label>
+									<div class="small-4 columns">
+										<label for="right-label" class="right inline">Notes</label>
 									</div>
-									<div class="small-9 columns">
+									<div class="small-8 columns">
 										<input class="edit-production-input" type="text" id="edit-notes" placeholder="Notes">
 									</div>
 								</div>
@@ -569,7 +624,9 @@
                 form_object  = {},
                 validate     = false,
                 error_msg    = "",
-                chosen_date  = $("#change-date-btn").val()
+                chosen_date  = $("#change-date-btn").val(),
+                customer_po  = $("#production_customer_po").val(),
+                delivery_option = $("input[name='production_delivery_option']:checked").val()
             ;
 
             $(".msg-alert").empty();
@@ -593,6 +650,8 @@
                 form_object['production_shift']        = shift;
                 form_object['production_status']       = status;
                 form_object['production_notes']        = notes;
+                form_object['production_customer_po']        = customer_po;
+				form_object['production_delivery_option']        = delivery_option;
 
                 $.ajax({
                     async   : false,
@@ -695,7 +754,10 @@
                 skids         = $(this).closest("tr").find("td.product-skids").html(),
                 shift         = $(this).closest("tr").find("td.product-shift").html(),
                 status        = $(this).closest("tr").find("td.product-status").html(),
-                notes         = $(this).closest("tr").find("td.product-notes").html()
+                notes         = $(this).closest("tr").find("td.product-notes").html(),
+                customer_po   = $(this).closest("tr").find("td.product-customer-po").html(),
+                delivery_option  = $(this).closest("tr").find("td.product-delivery-option").html()
+
             ;
 
             $("#production-id-edit").val(production_id);
@@ -709,7 +771,8 @@
             $("#edit-shift").val(shift);
             $("#edit-status").val(status);
             $("#edit-notes").val(notes);
-
+            $("#edit_production_customer_po").val(customer_po);
+            $('input:radio[name=edit_production_delivery_option]').val([delivery_option]);
             $('#editProductionModal').foundation('reveal', 'open');
         });
 
