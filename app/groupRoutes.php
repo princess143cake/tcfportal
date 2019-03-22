@@ -13,6 +13,7 @@ Route::group(['before' => 'auth'], function() {
 	Route::post('outbound_schedule/edit', ['before' => 'csrf', 'uses' => 'OutboundController@edit']);
 	Route::post('outbound_schedule/update', ['before' => 'csrf', 'uses' => 'OutboundController@update']);
 	Route::post('outbound_schedule/sortNumber', ['before' => 'csrf', 'uses' => 'OutboundController@sortNumber']);
+	Route::get('outbound_schedule/print/{id}','OutboundController@print');
 	//second phase
 	Route::post('outbound_schedule/insert_stop', ['before' => 'csrf', 'uses' => 'OutboundController@insert_stop']);
 	Route::post('outbound_schedule/delete_stop', ['before' => 'csrf', 'uses' => 'OutboundController@delete_stop']);

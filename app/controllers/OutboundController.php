@@ -3,6 +3,7 @@
 /**
 * Outbound controller
 */
+
 class OutboundController extends BaseController
 {
 	
@@ -123,5 +124,11 @@ class OutboundController extends BaseController
 				}
 			}
 		}
+	}
+	public function print($id){
+		$data = Outbound::find($id);
+		
+		$view = view('pdf.outbound')->with( compact('data') );
+		return PDF::load($view, 'A4', 'portrait')->show();
 	}
 }

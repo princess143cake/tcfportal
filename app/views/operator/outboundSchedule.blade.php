@@ -37,7 +37,7 @@
 			@foreach ($outbounds as $row)
 				<div class="large-12 column outbound-box margin-top-20">
 					<div class="large-3 column">
-						<h5>Route</h5>
+						<h5>Route <a target="_blank" href="{{ url('outbound_schedule/print/'.$row->id) }}" title="Print Route"><i class="print-btn fa fa-print"></i></a></h5>
 						<span class="route-text">Carrier: {{ $row->outbound_carrier }}</span>						
 						<span class="route-text">Driver: {{ $row->outbound_driver }}</span>						
 						<span class="route-text">Truck: {{ $row->outbound_truck }}</span>
