@@ -22,7 +22,7 @@
 					@endif
 				</div>
 
-				<table class="responsive production-table">
+				<table class="responsive production-table" id="production-table">
 				  	<thead>
 						<tr>
 							<th class="align-left">PRODUCT</th>
@@ -651,7 +651,7 @@
                 form_object['production_status']       = status;
                 form_object['production_notes']        = notes;
                 form_object['production_customer_po']        = customer_po;
-				form_object['production_delivery_option']        = delivery_option;
+				form_object['production_delivery_option']    = delivery_option;
 
                 $.ajax({
                     async   : false,
@@ -827,7 +827,10 @@
                 url             = '{{url::to("production/editProduction")}}',
                 form_object     = {},
                 validate        = false,
-                error_msg       = ""
+                error_msg       = "",
+                customer_po     = $('#edit_production_customer_po').val(),
+                delivery_option = $("input[name='edit_production_delivery_option']:checked").val()
+
             ;
 
             $(".msg-alert-edit").empty();
@@ -853,6 +856,8 @@
                 form_object['production_shift']        = shift;
                 form_object['production_status']       = status;
                 form_object['production_notes']        = notes;
+                form_object['production_customer_po']        = customer_po;
+                form_object['production_delivery_option']        = delivery_option;
 
                 $.ajax({
                     async   : false,
@@ -864,6 +869,7 @@
                    		repetitive: repetitive
                    	},
                     success : function(result) {
+
                         obj_result = JSON.parse(result);
 
                         if(obj_result.status == 'failed') {
@@ -872,7 +878,7 @@
                             $('#row-id-'+production_id).remove();
 
                             if(production_date == '{{$date}}') {
-                            	$("body .production-table").find('tbody').after($('<tr id="row-id-'+production_id+'" style="background-color:#A6E1A6 !important"><td class="product-product">'+product+'</td><td class="product-customer">'+customer+'</td><td class="product-pack-size">'+pack_size+'</td><td class="product-size">'+product_size+'</td><td class="product-cases">'+cases+'</td><td class="product-skids">'+skids+'</td><td class="product-shift">'+shift+'</td><td class="product-status">'+status+'</td><td class="product-notes">'+notes+'</td><td class="center-align"><a href="#" production-id="' + production_id + '" class="production-edit edit-btn"><i class="fa fa-pencil-square-o fa-lg"></i></a><a href="#" production-id="'+production_id+'" class="production-delete delete-btn"><i class="fa fa-trash fa-lg"></i></a></td></tr>'));
+                            	$("body .production-table").find('tbody').after($('<tr id="row-id-'+production_id+'" style="background-color:#A6E1A6 !important"><td class="product-product">'+product+'</td><td class="product-customer">'+customer+'</td><td class="product-customer">'+customer_po+'</td><td class="product-pack-size">'+pack_size+'</td><td class="product-size">'+product_size+'</td><td class="product-cases">'+cases+'</td><td class="product-skids">'+skids+'</td><td class="product-shift">'+shift+'</td><td class="product-status">'+status+'</td><td class="product-notes">'+notes+'</td><td class="product-delivery-option">'+delivery_option+'</td><td class="center-align"><a href="#" production-id="' + production_id + '" class="production-edit edit-btn"><i class="fa fa-pencil-square-o fa-lg"></i></a><a href="#" production-id="'+production_id+'" class="production-delete delete-btn"><i class="fa fa-trash fa-lg"></i></a></td></tr>'));
                             }
 
                             $('.production-input').val('');

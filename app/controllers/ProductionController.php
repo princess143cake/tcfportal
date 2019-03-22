@@ -137,6 +137,8 @@ class ProductionController extends BaseController {
 
 		$productions->production_date    	  = date("Y-m-d", strtotime($_POST['fields']['production_date']));
 		$productions->production_product 	  = $_POST['fields']['production_product'];
+		$productions->production_customer_po 	  = $_POST['fields']['production_customer_po'];
+		$productions->production_delivery_option  = $_POST['fields']['production_delivery_option'];
 		$productions->production_customer 	  = $_POST['fields']['production_customer'];
 		$productions->production_pack_size    = $_POST['fields']['production_pack_size'];
 		$productions->production_product_size = $_POST['fields']['production_product_size'];
