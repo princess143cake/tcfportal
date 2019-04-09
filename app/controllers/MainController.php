@@ -90,13 +90,13 @@ class MainController extends BaseController {
 			$nextday = date('Y-m-d', strtotime(' +3 day'));
 		}
 		if (Input::has('d')) {
-			$inbounds = Inbound::where('created_at', 'like', Input::get('d').'%')->get();
+			$inbounds = Inbound::where('schedule', 'like', Input::get('d').'%')->get();
 			$today = date('Y-m-d', strtotime(Input::get('d')));
 			$date = date('l F j, Y', strtotime(Input::get('d')));
 			//$nextday = date('Y-m-d', strtotime(Input::get('d').' +1 day'));
 			$nextday = date('Y-m-d', strtotime(Input::get('d')));
 		} else {
-			$inbounds = Inbound::where('created_at', 'like', date('Y-m-d').'%')->get();
+			$inbounds = Inbound::where('schedule', 'like', date('Y-m-d').'%')->get();
 		}
 
 		return view('fullscreen.inbound')->with(compact('inbounds', 'date', 'nextday','today', 'hide_header'));

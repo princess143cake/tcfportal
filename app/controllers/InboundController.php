@@ -10,10 +10,10 @@ class InboundController extends BaseController
 	{
 
 		if (Input::has('d')) {
-			$inbounds = Inbound::where('created_at', 'like', Input::get('d').'%')->get();
+			$inbounds = Inbound::where('schedule', 'like', Input::get('d').'%')->get();
 			$date = date('l F j, Y', strtotime(Input::get('d')));
 		} else {
-			$inbounds = Inbound::where('created_at', 'like', date('Y-m-d').'%')->get();
+			$inbounds = Inbound::where('schedule', 'like', date('Y-m-d').'%')->get();
 			$date = date('l F j, Y');
 		}
 		return view('operator.inboundSchedule')->with(compact('inbounds', 'date'));
