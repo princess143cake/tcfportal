@@ -222,8 +222,8 @@
 			format: 'Y-m-d h:i a'
 		});
 		$('.new-entry-btn').click(function(){
-			$("#schedule_val").val("");
-			$(".daily-date-edit").find("span").html("");
+			$("#schedule_val").val("{{ Input::get('d') }}");
+			$(".daily-date-edit").find("span").html("{{ Input::get('d') }}");
 			$('#create-btn').text('Create');
 		});
 
