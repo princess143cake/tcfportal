@@ -283,6 +283,7 @@
 							new_row = $('<tr>' +
 								'<td>'+response.inbound_vendor+'</td>' +
 								'<td>'+response.inbound_po_number+'</td>' +
+								'<td>'+response.inbound_customer_po+'</td>' +
 								'<td>'+response.inbound_carrier+'</td>' +
 								'<td>'+fields.inbound_product+'</td>' +
 								'<td>'+fields.inbound_kg+'</td>' +
@@ -301,6 +302,7 @@
 								// '<td>'+fields.inbound_pickup_number+'</td>' +
 
 								'<td>'+fields.inbound_eta+'</td>' +
+								'<td>'+response.inbound_delivery_option+'</td>' +
 								'<td data-id="'+response.id+'">' +
 									'<a class="edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>' +
 									'<a class="delete-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>' +
@@ -328,6 +330,7 @@
 							$('td[data-id="'+id+'"]').parent('tr').html('' +
 								'<td>'+response.inbound_vendor+'</td>' +
 								'<td>'+response.inbound_po_number+'</td>' +
+								'<td>'+response.inbound_customer_po+'</td>' +
 								'<td>'+response.inbound_carrier+'</td>' +
 								'<td>'+fields.inbound_product+'</td>' +
 								'<td>'+fields.inbound_kg+'</td>' +
@@ -346,6 +349,7 @@
 								// '<td>'+fields.inbound_pickup_number+'</td>' +
 
 								'<td>'+fields.inbound_eta+'</td>' +
+								'<td>'+response.inbound_delivery_option+'</td>' +
 								'<td data-id="'+response.id+'">' +
 									'<a class="edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>' +
 									'<a class="delete-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>' +
