@@ -233,7 +233,7 @@
 			form 	= $('#inbound-form'),
 
 			action = $(this).attr('data-action');
-
+			
 			fields = {
 				inbound_vendor: $('input[name="inbound_vendor"]').val(),
 				inbound_po_number: $('input[name="inbound_po_number"]').val(),
@@ -246,7 +246,7 @@
 				date: '{{ $date }}',
 				schedule:$('#schedule_val').val(),
 				inbound_customer_po:$('input[name="inbound_customer_po"]').val(),
-				inbound_delivery_option:$('input[name="inbound_delivery_option"]').val(),
+				inbound_delivery_option:$("input[name='inbound_delivery_option']:checked").val(),
 				// inbound_container_number: $('input[name="inbound_container_number"]').val(),
 				// inbound_supplier: $('input[name="inbound_supplier"]').val(),
 				// inbound_steamship_provider: $('input[name="inbound_steamship_provider"]').val(),
