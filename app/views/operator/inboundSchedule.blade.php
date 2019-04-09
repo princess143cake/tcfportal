@@ -398,7 +398,8 @@
 			success: function(response) {
 				
 				//firat step
-				var schedule = response.created_at;
+				var temp_schedule = response.created_at;
+				var schedule = temp_schedule.slice(0, 10);
 				if(response.schedule){
 					schedule = response.schedule;
 				}
