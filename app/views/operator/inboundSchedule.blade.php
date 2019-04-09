@@ -326,7 +326,7 @@
 						},
 						dataType: 'json',
 						success: function(response) {
-							
+							location.reload();
 							$('td[data-id="'+id+'"]').parent('tr').html('' +
 								'<td>'+response.inbound_vendor+'</td>' +
 								'<td>'+response.inbound_po_number+'</td>' +
