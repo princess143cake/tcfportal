@@ -19,11 +19,13 @@
             <tr>
               <th>Vendor</th>
               <th>PO#</th>
+              <th>Customer PO#</th>
               <th>Carrier</th>
               <th>Product</th>
               <th>KG</th>
               <th>SKIDS</th>
               <th class="point" data-sort="int">ETA <i class=""></i></th>
+              <th>Delivery</th>
           </tr>
         </thead>
         <tbody>
@@ -31,11 +33,13 @@
               <tr>
                 <td class="fixed-width-outbound">{{ $inbound->inbound_vendor }}</td>
                 <td class="fixed-width-outbound">{{ $inbound->inbound_po_number }}</td>
+                <td class="fixed-width-outbound">{{ $inbound->inbound_customer_po }}</td>
                 <td class="fixed-width-outbound">{{ $inbound->inbound_carrier }}</td>
                 <td class="fixed-width-outbound">{{ $inbound->inbound_product }}</td>
                 <td class="cell-font-size">{{ $inbound->inbound_cases }}</td>
                 <td class="cell-font-size">{{ $inbound->inbound_kg }}</td>
                 <td class="cell-font-size">{{ date('h:i a', $inbound->inbound_eta) }}</td>
+                <td class="fixed-width-outbound">{{ $inbound->inbound_delivery_option }}</td>
               </tr>
             @endforeach
         </tbody>
