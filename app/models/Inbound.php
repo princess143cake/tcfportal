@@ -16,6 +16,9 @@ class Inbound extends Eloquent
 		'inbound_kg',
 		'inbound_eta',
 		'user_id',
+		'schedule',
+		'inbound_customer_po',
+		'inbound_delivery_option'
 
 	];
 	

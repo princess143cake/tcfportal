@@ -30,6 +30,7 @@
 						<tr>
 							<th>Vendor</th>
 							<th>PO#</th>
+							<th>Customer PO#</th>
 							<th>Carrier</th>
 							<th>Product</th>
 							<th>KG</th>
@@ -46,6 +47,7 @@
 							<th>RV #</th>
 							<th>Pickup #</th> --}}
 							<th class="point" data-sort="int">ETA <i class="fa fa-sort"></i></th>
+							<th>Delivery</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -54,6 +56,7 @@
 							<tr>
 								<td class="fixed-width-outbound">{{ $inbound->inbound_vendor }}</td>
 								<td class="fixed-width-outbound">{{ $inbound->inbound_po_number }}</td>
+								<td class="fixed-width-outbound">{{ $inbound->inbound_customer_po }}</td>
 								<td class="fixed-width-outbound">{{ $inbound->inbound_carrier }}</td>							
 								<td class="fixed-width-outbound">{{ $inbound->inbound_product }}</td>
 								<td>{{ $inbound->inbound_kg }}</td>
@@ -72,6 +75,7 @@
 								
 								 --}}
 								 <td>{{ $inbound->inbound_eta ? date('h:i a', $inbound->inbound_eta) : '' }}</td>
+								 <td>{{ $inbound->inbound_delivery_option }}</td>
 								 <td data-id="{{ $inbound->id }}">
 									@if( Auth::user()->is_admin )
 									<a class="edit-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
@@ -91,11 +95,23 @@
 		<h2 id="modalTitle">Inbound Schedule</h2>
 		<p class="lead">First Step</p>
 			<form id="inbound-form">
+				<div class="row">
+					<div class="small-4 columns">
+						<label for="right-label" class="inline">Date</label>
+					</div>
+					<div class="small-8 columns daily-date daily-date-edit">
+						<span id="schedule"></span> &nbsp;<a href="#" title="Change Date" id="change-date-btn-edit"><i class="fa fa-calendar"></i></a>
+						<input type="hidden" name="schedule" id="schedule_val">
+					</div>
+				</div>
 				{{ Form::label('inbound_vendor', 'Vendor') }}
 				{{ Form::text('inbound_vendor', '', ['placeholder' => 'Vendor', 'class' => 'repetitive']) }}
 
 				{{ Form::label('inbound_po_number', 'PO#') }}
 				{{ Form::text('inbound_po_number', '', ['placeholder' => 'PO#', 'class' => 'repetitive']) }}
+
+				{{ Form::label('inbound_customer_po', 'Customer PO#') }}
+				{{ Form::text('inbound_customer_po', '', ['placeholder' => 'Customer PO#', 'class' => 'repetitive']) }}
 
 				{{ Form::label('inbound_carrier', 'Carrier') }}
 				{{ Form::text('inbound_carrier', '', ['placeholder' => 'Carrier', 'class' => 'repetitive']) }}
@@ -111,6 +127,14 @@
 
 				{{ Form::label('inbound_eta', 'ETA') }}
 				{{ Form::text('inbound_eta', '', ['placeholder' => 'ETA']) }}
+
+				
+	  			<fieldset class="large-12 cell">
+	    			<legend>Delivery Option</legend>
+	    			<input type="radio" name="inbound_delivery_option" value="pickup" id="pick_up" required><label for="pick_up">Pick Up</label>
+	    			<input type="radio" name="inbound_delivery_option" value="delivery" id="delivery" checked><label for="delivery">Delivery</label>
+	  			</fieldset>
+									
 
 				{{-- {{ Form::label('inbound_container_number', 'Container Number') }}
 				{{ Form::text('inbound_container_number', '', ['placeholder' => 'Container Number']) }}
@@ -162,7 +186,28 @@
 	});
 
 	$(document).ready(function() {
-
+		$('#change-date-btn-edit').datetimepicker({
+			onGenerate:function(){
+				
+			    $(this).find('.xdsoft_date.xdsoft_weekend').addClass('xdsoft_disabled');
+			},
+			timepicker: false,
+			value: "",
+			format: 'Y-m-d',
+			onSelectDate:function($date){
+				  var day = $date.getDate();
+				  var month = $date.getMonth() + 1;
+				  var year = $date.getFullYear();	
+				  if(day < 10){
+					  day = "0" + day;
+				  }
+				  if(month < 10){
+					  month = "0" + month;
+				  }
+				  $("#schedule_val").val(year + '-'+ month + '-' + day);
+				  $(".daily-date-edit").find("span").html(year + '-'+ month + '-' + day);
+			}
+		});
 		$('input[name="inbound_eta"]').datetimepicker({
 			datepicker: false,
 			format: 'h:i a'
@@ -177,6 +222,8 @@
 			format: 'Y-m-d h:i a'
 		});
 		$('.new-entry-btn').click(function(){
+			$("#schedule_val").val("");
+			$(".daily-date-edit").find("span").html("");
 			$('#create-btn').text('Create');
 		});
 
@@ -197,6 +244,9 @@
 				inbound_eta: $('input[name="inbound_eta"]').val(),
 				user_id: '{{ Auth::user()->id }}',
 				date: '{{ $date }}',
+				schedule:$('#schedule_val').val(),
+				inbound_customer_po:$('input[name="inbound_customer_po"]').val(),
+				inbound_delivery_option:$('input[name="inbound_delivery_option"]').val(),
 				// inbound_container_number: $('input[name="inbound_container_number"]').val(),
 				// inbound_supplier: $('input[name="inbound_supplier"]').val(),
 				// inbound_steamship_provider: $('input[name="inbound_steamship_provider"]').val(),
@@ -210,7 +260,7 @@
 				// inbound_pickup_number: $('input[name="inbound_pickup_number"]').val(),
 			};
 
-			console.log( fields );
+			
 
 			if (fields.inbound_vendor != '' || fields.inbound_po_number != '' || fields.inbound_carrier != '' || fields.inbound_product != '' || fields.inbound_cases != '' || fields.inbound_kg != '' || fields.inbound_eta != '') {
 
@@ -228,7 +278,7 @@
 						},
 						dataType: 'json',
 						success: function(response) {
-							console.log(response);
+							
 							$('#inbound_modal').foundation('reveal', 'close');
 							new_row = $('<tr>' +
 								'<td>'+response.inbound_vendor+'</td>' +
@@ -274,7 +324,7 @@
 						},
 						dataType: 'json',
 						success: function(response) {
-							console.log( response );
+							
 							$('td[data-id="'+id+'"]').parent('tr').html('' +
 								'<td>'+response.inbound_vendor+'</td>' +
 								'<td>'+response.inbound_po_number+'</td>' +
@@ -346,7 +396,13 @@
 			},
 			dataType: 'json',
 			success: function(response) {
+				
 				//firat step
+				var schedule = response.created_at;
+				if(response.schedule){
+					schedule = response.schedule;
+				}
+				
 				$('input[name="inbound_vendor"]').val(response.inbound_vendor);
 				$('input[name="inbound_po_number"]').val(response.inbound_po_number);
 				$('input[name="inbound_carrier"]').val(response.inbound_carrier);
@@ -355,7 +411,19 @@
 				$('input[name="inbound_cases"]').val(response.inbound_cases);
 				$('input[name="inbound_kg"]').val(response.inbound_kg);
 				$('input[name="inbound_eta"]').val(response.inbound_eta);
+				$('input[name="inbound_customer_po"]').val(response.inbound_customer_po);
 				$('#update-btn').attr('data-id', response.id);
+				$('#schedule').text(schedule);
+				$('#schedule_val').val(schedule);
+
+				if(response.inbound_delivery_option){
+					if(response.inbound_delivery_option == 'pickup'){
+						$("#pick_up").attr('checked', 'checked');
+					}
+					else if(response.inbound_delivery_option == 'delivery'){
+						$("#delivery").attr('checked', 'checked');
+					}
+				}
 				// $('input[name="inbound_container_number"]').val( response.inbound_container_number ) ;
 				// $('input[name="inbound_supplier"]').val( response.inbound_supplier );
 				// $('input[name="inbound_steamship_provider"]').val( response.inbound_steamship_provider );
