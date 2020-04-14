@@ -6,6 +6,11 @@
 // Operator Routes
 Route::group(['before' => 'auth'], function() {
 
+	Route::get('inbound_outbound', ['before' => 'access_rights', 'uses' => 'InboundController@combined']);
+	Route::get('ajax/get/schedule', ['before' => 'access_rights', 'uses' => 'InboundController@get_combined_records']);
+	
+
+
 	//Outbound Schedule
 	Route::get('outbound_schedule', ['before' => 'access_rights', 'uses' => 'OutboundController@index']);
 	Route::post('outbound_schedule/insert', ['before' => 'csrf', 'uses' => 'OutboundController@insert']);

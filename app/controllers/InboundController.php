@@ -19,6 +19,65 @@ class InboundController extends BaseController
 		return view('operator.inboundSchedule')->with(compact('inbounds', 'date'));
 	}
 
+	public function combined(){
+
+		$date = date('Y-m-d');
+
+		return view('operator.combined')->with(compact('date'));
+	}
+
+	public function get_combined_records(){			
+
+		$option = Input::get('option');
+		if (Input::get('option') == "outbound_schedule") {
+			
+			if (Input::has('d')) {
+				$outbounds = Outbound::where('created_at', 'like', Input::get('d').'%')->orderBy('outbound_start_time', 'ASC')->get();
+				$date = date('l F j, Y', strtotime(Input::get('d')));
+			} else {
+				$outbounds = Outbound::where('created_at', 'like', date('Y-m-d').'%')->orderBy('outbound_start_time', 'ASC')->get();
+				$date = date('l F j, Y');
+			}			
+	
+			$view = view('operator.outboundSchedule')->with(compact('outbounds','date','option'));
+		}
+
+		if (Input::get('option') == "inbound_shipping") {
+			
+			if (Input::has('d')) {
+				$inbounds = InboundShipping::where('created_at', 'like', Input::get('d').'%')->get();
+				$date = date('l F j, Y', strtotime(Input::get('d')));
+			} else {
+				$inbounds = InboundShipping::where('created_at', 'like', date('Y-m-d').'%')->get();
+				$date = date('l F j, Y');
+			}	
+			$view = view('inbound_shipping.inbound_shipping')->with(compact('inbounds', 'date','option'));
+
+		}
+
+		if (Input::get('option') == "inbound_schedule") {
+			
+			if (Input::has('d')) {
+				$inbounds = Inbound::where('schedule', 'like', Input::get('d').'%')->get();
+				$date = date('l F j, Y', strtotime(Input::get('d')));
+			} else {
+				$inbounds = Inbound::where('schedule', 'like', date('Y-m-d').'%')->get();
+				$date = date('l F j, Y');
+			}
+			$view =  view('operator.inboundSchedule')->with(compact('inbounds', 'date','option'));
+
+		}
+		if (Input::get('option') == "0") {
+			$date = date('Y-m-d');
+
+		 	$view = view('layouts.plain')->with(compact('date'));
+		}
+		$response = [            
+			'view' => $view->render()
+		];
+		return \Response::json($response);
+	}
+
 	public function insert()
 	{
 		$fields = Input::get('fields');

@@ -12,9 +12,15 @@
                         @if(user_access_rights(1) == "true")
                         <li><a href="{{ URL::to('production?product-date=').date('Y-m-d') }}" class="{{ Request::segment(1) == 'production' ? 'active-side-nav' : '' }}"><i class="fa fa-calendar"></i> <span>Production Schedule</span></a></li>
                         @endif
+                        @if(user_access_rights(2) == "true")
+                        <li><a href="{{ URL::to('outbound_schedule') }}" class="{{ Request::segment(1) == 'outbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-truck"></i> <span>Outbound Schedule</span></a></li>
+                        @endif
+                        @if(user_access_rights(3) == "true")
+                        <li><a href="{{ URL::to('inbound_schedule') }}" class="{{ Request::segment(1) == 'inbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Schedule</span></a></li>
+                        @endif
 
                         @if(user_access_rights(6) == "true")
-                        <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound / Outbound </span></a></li>
+                        <li><a href="{{ URL::to('inbound_shipping') }}" class="{{ Request::segment(1) == 'inbound_shipping' ? 'active-side-nav' : '' }}"><i class="fa fa-bars"></i> <span>Inbound Shipping</span></a></li>
                         @endif
 
                         @if(user_access_rights(4) == "true")
@@ -50,7 +56,19 @@
                         <li><a href="{{ URL::to('production?product-date=').date('Y-m-d') }}" class="{{ Request::segment(1) == 'production' ? 'active-side-nav' : '' }}"><i class="fa fa-calendar"></i> <span>Production Schedule</span></a></li>
                         @endif
 
+                        @if(user_access_rights(2) == "true")
+                        <li><a href="{{ URL::to('outbound_schedule') }}" class="{{ Request::segment(1) == 'outbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-truck"></i> <span>Outbound Schedule</span></a></li>
+                        @endif
+                        @if(user_access_rights(3) == "true")
+                        <li><a href="{{ URL::to('inbound_schedule') }}" class="{{ Request::segment(1) == 'inbound_schedule' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Schedule</span></a></li>
+                        @endif
+                       
+
                         @if(user_access_rights(6) == "true")
+                        <li><a href="{{ URL::to('inbound_shipping') }}" class="{{ Request::segment(1) == 'inbound_shipping' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound Shipping</span></a></li>
+                        @endif
+
+                         @if(user_access_rights(6) == "true")
                         <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound / Outbound </span></a></li>
                         @endif
 

@@ -16,7 +16,9 @@ class OutboundController extends BaseController
 			$outbounds = Outbound::where('created_at', 'like', date('Y-m-d').'%')->orderBy('outbound_start_time', 'ASC')->get();
 			$date = date('l F j, Y');
 		}
-		return view('operator.outboundSchedule')->with(compact('outbounds', 'date'));
+
+		
+		return view('operator.adrian')->with(compact('outbounds', 'date'));
 	}
 
 	public function insert()
@@ -49,6 +51,7 @@ class OutboundController extends BaseController
 	{
 		$outbound = Outbound::find(Input::get('id'));
 		$outbound->outbound_start_time = $outbound->outbound_start_time ? date('h:i a', $outbound->outbound_start_time) : '';
+
 		return json_encode($outbound);
 	}
 
@@ -63,6 +66,7 @@ class OutboundController extends BaseController
 		Outbound::where(['id' => Input::get('id')])->update($fields);
 		$outbound = Outbound::find(Input::get('id'));
 		$outbound->outbound_start_time = $outbound->outbound_start_time ? date('h:i a', $outbound->outbound_start_time) : '';
+
 		return json_encode($outbound);
 	}
 
@@ -107,6 +111,7 @@ class OutboundController extends BaseController
 	public function delete_stop()
 	{
 		OutboundSecond::where(['id' => Input::get('id')])->delete();
+		
 	}
 
 	public function sortNumber()

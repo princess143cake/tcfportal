@@ -6,6 +6,7 @@
 class Outbound extends Eloquent
 {
 
+
 	protected $table = 'outbound_schedule';
 	protected $fillable = [
 		'outbound_carrier',
@@ -21,5 +22,13 @@ class Outbound extends Eloquent
 	{
 		return $this->hasMany('OutboundSecond')->orderBy('sort_number', 'ASC');
 	}
-	
+	// public function getCreatedAtAttribute($date)
+	// {
+	//     return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('m/d/Y');
+	// }
+
+	// public function getUpdatedAtAttribute($date)
+	// {
+	//     return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('m/d/Y');
+	// }
 }

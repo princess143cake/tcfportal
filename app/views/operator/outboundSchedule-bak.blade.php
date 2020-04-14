@@ -1,4 +1,4 @@
-@extends('layouts.plain')
+@extends('layouts.default')
 
 @section('title'){{ 'Outbound Schedule' }}@stop
 
@@ -32,12 +32,11 @@
 				@endif
 				<span id="date-text"> - {{ $date }} &nbsp;<a href="#" title="Change Date" id="change-date-btn"><i class="fa fa-calendar"></i></a></span>
 			</div>
-			<input type="hidden" name="option1" id="option1" value="{{ $option }}">
 
 
 			@foreach ($outbounds as $row)
-				<div class="large-12 column outbound-box margin-top-20" id="{{ $row->id }}">
-					<div class="large-3 column" >
+				<div class="large-12 column outbound-box margin-top-20">
+					<div class="large-3 column">
 						<h5>Route <a target="_blank" href="{{ url('outbound_schedule/print/'.$row->id) }}" title="Print Route"><i class="print-btn fa fa-print"></i></a></h5>
 						<span class="route-text">Carrier: {{ $row->outbound_carrier }}</span>						
 						<span class="route-text">Driver: {{ $row->outbound_driver }}</span>						
@@ -68,7 +67,7 @@
 								</thead>
 								<tbody>
 									@foreach ($row->secondphase as $second)
-										<tr id="{{$second->id}}">
+										<tr>
 											<td>{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>
 											<td class="fixed-width-inbound">{{ $second->outbound_customer }}</td>
 											<td class="fixed-width-inbound">{{ $second->outbound_location }}</td>
@@ -77,7 +76,7 @@
 											<td>{{ $second->outbound_pick_status }}</td>
 											<td class="sort-number" data-id="{{ $second->id }}">
 												@if( Auth::user()->is_admin )
-												<a class="edit-btn edit-stop-btn" data-id="{{ $second->id }}" href="#" title="Edit" data-reveal-id="edit_stop_modal" data-backdrop="false"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+												<a class="edit-btn edit-stop-btn" data-id="{{ $second->id }}" href="#" title="Edit" data-reveal-id="edit_stop_modal"><i class="fa fa-pencil-square-o fa-lg"></i></a>
 												<a class="delete-btn delete-stop-btn" data-id="{{ $second->id }}" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>
 												<a class="up" href="#" title="Move Up"><i class="fa fa-arrow-up fa-lg"></i> </a>
 												<a class="down" href="#" title="Move Down"><i class="fa fa-arrow-down fa-lg"></i> </a>
@@ -92,12 +91,9 @@
 						@endif
 					</div>
 				</div>
-
 			@endforeach
-
-
 		</div>
-	</div>	
+	</div>
 
 	{{-- Modals --}}
 	<div id="first_outbound_modal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
@@ -198,7 +194,7 @@
 		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 	</div>
 
-	<div id="edit_stop_modal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" >
+	<div id="edit_stop_modal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 		<h2 id="modalTitle">Outbound Schedule</h2>
 		<p class="lead">New STOP</p>
 			<form id="update-outbound2-form">
@@ -325,7 +321,7 @@
 						id: id
 					},
 					success: function() {
-						$('#' + id).remove();
+						window.location.reload();
 					}
 				});
 			}
@@ -401,9 +397,7 @@
 				},
 				dataType: 'json',
 				success: function(response) {
-					// window.location.reload();
-					$('#edit_outbound_modal').foundation('reveal', 'close');
-
+					window.location.reload();
 				}
 			});
 
@@ -480,7 +474,6 @@
 					$('#update2-btn').attr('data-id', response.id);
 				}
 			});
-			$('#edit_stop_modal').foundation('reveal', 'open');
 		});
 
 		$('#update2-btn').click(function(event) {
@@ -510,9 +503,7 @@
 				},
 				dataType: 'json',
 				success: function(response) {
-					
-					$('#edit_stop_modal').foundation('reveal', 'close');
-
+					window.location.reload();
 				}
 			});
 
@@ -522,7 +513,6 @@
 		$('.delete-stop-btn').click(function(event) {
 			event.preventDefault();
 			id = $(this).data('id');
-
 			if (confirm('Delete confirmation')) {
 				$.ajax({
 					type: 'post',
@@ -531,8 +521,8 @@
 						_token: '{{ csrf_token() }}',
 						id: id
 					},
-					success: function(result) {
-						$('#' + id).remove();																
+					success: function() {
+						window.location.reload();
 					}
 				});
 			}
@@ -541,33 +531,19 @@
 
 		//sort table
 		$('.tcf-table').stupidtable();
-		
+
 		//change date
-		$('#change-date-btn').datetimepicker({			
+		$('#change-date-btn').datetimepicker({
+/*//disabled by job salas since they need to add outbound for weekends
+			onGenerate:function(){
+			    $(this).find('.xdsoft_date.xdsoft_weekend').addClass('xdsoft_disabled');
+			},
+*/
 			timepicker: false,
 			value: "{{ Input::get('d') }}",
 			format: 'Y-m-d',
 			onSelectDate:function($date){
-				var d  = $date.dateFormat('Y-m-d');
-				var option = $("#option").val();	
-
-				$.ajax({
-					type: "GET",					
-					url:"ajax/get/schedule",
-					data:{
-						option:option,
-						d:d,
-						_token: "{{ csrf_token() }}"
-					},
-					success: function(response){
-						
-						console.log(response);
-						$("#department-select-div").html(response.view);
-						$("#department-select option:first").attr('selected','selected');				
-						$('#department-select').change();
-					}
-				});
-
+				window.location.href = '{{ URL::to("outbound_schedule") }}?d=' + $date.dateFormat('Y-m-d');
 			}
 		});
 

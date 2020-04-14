@@ -1,4 +1,4 @@
-@extends('layouts.plain')
+@extends('layouts.default')
 
 @section('title'){{ 'Inbound Schedule' }}@stop
 
@@ -326,7 +326,7 @@
 						},
 						dataType: 'json',
 						success: function(response) {
-							
+							location.reload();
 							$('td[data-id="'+id+'"]').parent('tr').html('' +
 								'<td>'+response.inbound_vendor+'</td>' +
 								'<td>'+response.inbound_po_number+'</td>' +
@@ -450,33 +450,17 @@
 	$('.tcf-table').stupidtable();
 
 	//change date
-	$('#change-date-btn').datetimepicker({			
-			timepicker: false,
-			value: "{{ Input::get('d') }}",
-			format: 'Y-m-d',
-			onSelectDate:function($date){
-				var d  = $date.dateFormat('Y-m-d');
-				var option = $("#option").val();	
-
-				$.ajax({
-					type: "GET",					
-					url:"ajax/get/schedule",
-					data:{
-						option:option,
-						d:d,
-						_token: "{{ csrf_token() }}"
-					},
-					success: function(response){
-						
-						console.log(response);
-						$("#department-select-div").html(response.view);
-						$("#department-select option:first").attr('selected','selected');				
-						$('#department-select').change();
-					}
-				});
-
-			}
-		});
+	$('#change-date-btn').datetimepicker({
+		onGenerate:function(){
+		    $(this).find('.xdsoft_date.xdsoft_weekend').addClass('xdsoft_disabled');
+		},
+		timepicker: false,
+		value: "{{ Input::get('d') }}",
+		format: 'Y-m-d',
+		onSelectDate:function($date){
+			window.location.href = '{{ URL::to("inbound_schedule") }}?d=' + $date.dateFormat('Y-m-d');
+		}
+	});
 
 	}); //end document ready
 </script>
