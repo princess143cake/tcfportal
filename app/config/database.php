@@ -55,8 +55,8 @@ return array(
         'mysql' => array(
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'easyweb_tcf_db',
-            'username'  => 'tcf',
+            'database'  => 'easyweb_dev_tcf_db',
+            'username'  => 'dev_tcf',
             'password'  => 'w@N@hAkaLuG1_2015',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',

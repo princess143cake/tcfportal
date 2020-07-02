@@ -189,8 +189,8 @@
 				<label for="outbound_pick_status">Pick Status</label>
 
         		<select id="outbound_pick_status" name="outbound_pick_status">
-		          	<option value="Pending">Pending</option>
-		          	<option value="Completed">Completed</option>
+		          	<option value="inbound">Inbound</option>
+		          	<option value="outbound">Outbound</option>
 		        </select>
 
 				<a href="#" id="create2-btn" class="button expand">Create</a>			
@@ -220,8 +220,8 @@
 				<label for="">Pick Status</label>
 
         		<select id="edit_outbound_pick_status" name="edit_outbound_pick_status">
-		          	<option value="Pending">Pending</option>
-		          	<option value="Completed">Completed</option>
+		          	<option value="inbound">Inbound</option>
+		          	<option value="outbound">Outbound</option>
 		        </select>
 
 				<a href="#" id="update2-btn" class="button expand">Update</a>			
