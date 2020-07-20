@@ -55,7 +55,7 @@
 					@if ($activities->toArray())
 						@foreach ($activities as $activity)
 							@if ($activity->type != 'production')
-								<p class="font-small"><b>{{ User::find($activity->user_id)->name }}</b> created a new <a href="{{ URL::to($activity->type.'_schedule') }}">{{ $activity->type }} schedule</a> <span data-livestamp="{{ strtotime($activity->created_at) }}"></span>.</p>
+								<p class="font-small"><b>{{ User::find($activity->user_id)->name }}</b> created a new <a href="{{ URL::to('/inbound_outbound') }}">{{ $activity->type }} schedule</a> <span data-livestamp="{{ strtotime($activity->created_at) }}"></span>.</p>
 							@else
 								@if(!empty(User::find($activity->user_id)->name))
 									<p class="font-small"><b>{{ User::find($activity->user_id)->name }}</b> created a new <a href="{{ URL::to('production?product-date=').date('Y-m-d') }}">{{ $activity->type }} schedule</a> <span data-livestamp="{{ strtotime($activity->created_at) }}"></span>.</p>

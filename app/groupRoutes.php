@@ -7,7 +7,7 @@
 Route::group(['before' => 'auth'], function() {
 
 	Route::get('inbound_outbound', ['before' => 'access_rights', 'uses' => 'InboundController@combined']);
-	Route::get('ajax/get/schedule', ['before' => 'access_rights', 'uses' => 'InboundController@get_combined_records']);
+	// Route::get('ajax/get/schedule', ['before' => 'access_rights', 'uses' => 'InboundController@get_combined_records']);
 	
 
 
