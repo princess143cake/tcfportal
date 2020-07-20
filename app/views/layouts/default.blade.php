@@ -14,7 +14,7 @@
                         @endif
 
                         @if(user_access_rights(6) == "true")
-                        <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Schedules </span></a></li>
+                        <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound/Outbound Schedule </span></a></li>
                         @endif
 
                         @if(user_access_rights(4) == "true")
@@ -51,7 +51,7 @@
                         @endif
 
                         @if(user_access_rights(6) == "true")
-                        <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Schedules </span></a></li>
+                        <li><a href="{{ URL::to('inbound_outbound') }}" class="{{ Request::segment(1) == 'inbound_outbound' ? 'active-side-nav' : '' }}"><i class="fa fa-cubes"></i> <span>Inbound/Outbound Schedule </span></a></li>
                         @endif
 
                         @if(user_access_rights(5) == "true")
