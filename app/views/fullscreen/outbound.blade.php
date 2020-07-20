@@ -21,36 +21,43 @@
 <div class="fs-daily" style="overflow-y:auto;">
   @foreach ($outbounds as $row)
     <div class="large-12 column outbound-box margin-top-20">
-      <div class="large-3 column">
+      <div class="large-2 column">
         <h5 class="fs-h5">Route</h5>
         <span class="route-text fixed-width-outbound">Carrier: {{ $row->outbound_carrier }}</span>           
-        <span class="route-text fixed-width-outbound">Driver: {{ $row->outbound_driver }}</span>           
+        <span class="route-text fixed-width-outbound">Driver: {{ $row->outbound_driver }}</span>
+        <span class="route-text cell-font-size">Start Time: {{ $row->outbound_start_time ? date('h:i a', $row->outbound_start_time) : '' }}</span>             
         <span class="route-text fixed-width-outbound">Truck: {{ $row->outbound_truck }}</span>           
-        <span class="route-text cell-font-size">Start Time: {{ $row->outbound_start_time ? date('h:i a', $row->outbound_start_time) : '' }}</span>           
         <span class="route-text fixed-width-outbound">Region: {{ $row->outbound_region }}</span>           
       </div>
 
-      <div class="large-9 column">
+      <div class="large-10 column">
         <h5 class="fs-h5">Stops</h5>
         @if ($row->secondphase->toArray())
           <table class="fs-table">
             <thead>
               <tr>
-                <th class="point" data-sort="int">Dock Time <i class=""></i></th> 
                 <th class="point" data-sort="string">Customer <i class=""></i></th> 
-                <th class="point" data-sort="string">Location <i class=""></i></th> 
+                <th class="point" data-sort="string">Customer Po<i class=""></i></th> 
                 <th class="point" data-sort="int">Order No. <i class=""></i></th> 
+                <th class="point" data-sort="int">Dock Time <i class=""></i></th> 
+                <th class="point" data-sort="string">Location <i class=""></i></th> 
+                <th class="point" data-sort="string">Skids <i class=""></i></th>                
                 <th class="point" data-sort="string">Pick Status <i class=""></i></th>
+                
               </tr>
             </thead>
             <tbody>
               @foreach ($row->secondphase as $second)
                 <tr>
-                  <td class="cell-font-size">{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>
+                  
                   <td class="fixed-width-outbound">{{ $second->outbound_customer }}</td>
-                  <td class="fixed-width-outbound">{{ $second->outbound_location }}</td>
+                  <td class="fixed-width-outbound">{{ $second->outbound_customer_po }}</td>
                   <td class="fixed-width-outbound">{{ $second->outbound_order_number }}</td>
+                  <td class="cell-font-size">{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>
+                  <td class="fixed-width-outbound">{{ $second->outbound_location }}</td>
+                  <td class="cell-font-size">{{ $second->outbound_skids }}</td>
                   <td class="cell-font-size">{{ $second->outbound_pick_status }}</td>
+                  
                 </tr>
               @endforeach
             </tbody>
