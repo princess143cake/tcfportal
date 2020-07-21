@@ -117,14 +117,16 @@ class MainController extends BaseController {
 
 		if (Input::has('d')) {
 			$outbounds = Outbound::where('created_at', 'like', Input::get('d').'%')->orderBy('outbound_start_time', 'ASC')->get();
+			$inbounds = Inbound::where('schedule', 'like', Input::get('d').'%')->get();
 			$today = date('Y-m-d', strtotime(Input::get('d')));
 			$date = date('l F j, Y', strtotime(Input::get('d')));
 			$nextday = date('Y-m-d', strtotime(Input::get('d').' +1 day'));
 		} else {
 			$outbounds = Outbound::where('created_at', 'like', date('Y-m-d').'%')->orderBy('outbound_start_time', 'ASC')->get();
+			$inbounds = Inbound::where('schedule', 'like', date('Y-m-d').'%')->get();
 		}
 
-		return view('fullscreen.outbound')->with(compact('outbounds', 'date', 'nextday','today', 'hide_header'));
+		return view('fullscreen.outbound')->with(compact('inbounds','outbounds', 'date', 'nextday','today', 'hide_header'));
 	}
 
 	public function production_weekly_fullscreen()
