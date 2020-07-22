@@ -37,10 +37,10 @@
             <thead>
               <tr>
                 <th class="point" data-sort="string">Customer <i class=""></i></th> 
+                <th class="point" data-sort="string">Location <i class=""></i></th> 
                 <th class="point" data-sort="string">Customer Po<i class=""></i></th> 
                 <th class="point" data-sort="int">Order No. <i class=""></i></th> 
-                <th class="point" data-sort="int">Dock Time <i class=""></i></th> 
-                <th class="point" data-sort="string">Location <i class=""></i></th> 
+                <th class="point" data-sort="int">Dock Time <i class=""></i></th>                 
                 <th class="point" data-sort="string">Skids <i class=""></i></th>                
                 <th class="point" data-sort="string">Pick Status <i class=""></i></th>
                 
@@ -51,10 +51,10 @@
                 <tr>
                   
                   <td class="fixed-width-outbound">{{ $second->outbound_customer }}</td>
+                  <td class="fixed-width-outbound">{{ $second->outbound_location }}</td>
                   <td class="fixed-width-outbound">{{ $second->outbound_customer_po }}</td>
                   <td class="fixed-width-outbound">{{ $second->outbound_order_number }}</td>
-                  <td class="cell-font-size">{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>
-                  <td class="fixed-width-outbound">{{ $second->outbound_location }}</td>
+                  <td class="cell-font-size">{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>                  
                   <td class="cell-font-size">{{ $second->outbound_skids }}</td>
                   <td class="cell-font-size">{{ $second->outbound_pick_status }}</td>
                   

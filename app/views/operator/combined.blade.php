@@ -66,6 +66,7 @@
 								<thead>
 									<tr>
 										<th class="point" data-sort="string">Customer <i class="fa fa-sort"></i></th>	
+										<th class="point" data-sort="string">Location<i class="fa fa-sort"></i></th>	
 										<th class="point" data-sort="string">Customer Po <i class="fa fa-sort"></i></th>	
 										<th class="point" data-sort="int">Order No. <i class="fa fa-sort"></i></th>	
 										<th class="point" data-sort="int">Dock Time <i class="fa fa-sort"></i></th>	
@@ -79,6 +80,7 @@
 									@foreach ($row->secondphase as $second)
 										<tr>
 											<td class="fixed-width-inbound">{{ $second->outbound_customer }}</td>
+											<td class="fixed-width-inbound">{{ $second->outbound_location }}</td>
 											<td class="fixed-width-inbound">{{ $second->outbound_customer_po }}</td>
 											<td>{{ $second->outbound_order_number }}</td>
 											<td>{{ $second->outbound_dock_time ? date('h:i a', $second->outbound_dock_time) : '' }}</td>
