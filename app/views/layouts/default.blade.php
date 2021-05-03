@@ -1,4 +1,6 @@
 @include('layouts.header')
+
+
 <div id="page-wrap"> {{-- Page Wrap Starts --}}
     <div class="off-canvas-wrap" data-offcanvas>
             <div class="inner-wrap">

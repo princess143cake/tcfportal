@@ -21,7 +21,7 @@
 					</a>	
 				</div>
 				<div class="column small-11 small-centered large-4 large-uncentered home-box">
-					<a href="{{ URL::to('fs/outbound') }}" class="home-btn">
+					<a href="{{ URL::to('fs/inbound_outbound') }}" class="home-btn">
 						<div class="home-circle outb-circle ">
 							<i class="fa fa-truck fa-2x"></i>
 						</div>

@@ -55,9 +55,9 @@ return array(
         'mysql' => array(
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'easyweb_dev_tcf_db',
-            'username'  => 'dev_tcf',
-            'password'  => 'w@N@hAkaLuG1_2015',
+            'database'  => 'tcfood88_88',
+            'username'  => 'tcfood88_dbus7',
+            'password'  => 'wh!teNail39',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

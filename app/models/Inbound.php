@@ -1,8 +1,8 @@
 <?php
 
 /**
-* Inbound Model
-*/
+ * Inbound Model
+ */
 class Inbound extends Eloquent
 {
 
@@ -18,8 +18,13 @@ class Inbound extends Eloquent
 		'user_id',
 		'schedule',
 		'inbound_customer_po',
-		'inbound_delivery_option'
+		'inbound_delivery_option',
+		'inbounded'
 
 	];
-	
+
+	public function outbound()
+	{
+		return $this->belongsTo(Outbound::class);
+	}
 }

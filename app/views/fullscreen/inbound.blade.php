@@ -3,48 +3,57 @@
 @section('title'){{ 'Inbound Schedule' }}@stop
 
 @section('custom-css')
-  <style type="text/css">
-    .point {
-      cursor: pointer !important;
-    }
-  </style>
+<style type="text/css">
+  .point {
+    cursor: pointer !important;
+  }
+</style>
 @stop
 
 @section('content')
 
 <h4 class="fs-f4">{{ HTML::image('/tcf-logo.jpg', '', array('class' => 'tcf-logo')) }}{{ $date }} Inbound Schedule</h4>
 <div class="fs-daily" style="overflow-y:auto;">
-    <table class="fs-table responsive margin-top-20">
-        <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>PO#</th>
-              <th>Customer PO#</th>
-              <th>Carrier</th>
-              <th>Product</th>
-              <th>KG</th>
-              <th>SKIDS</th>
-              <th class="point" data-sort="int">ETA <i class=""></i></th>
-              <th>Delivery</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach ($inbounds as $inbound)
-              <tr>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_vendor }}</td>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_po_number }}</td>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_customer_po }}</td>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_carrier }}</td>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_product }}</td>
-                <td class="cell-font-size">{{ $inbound->inbound_cases }}</td>
-                <td class="cell-font-size">{{ $inbound->inbound_kg }}</td>
-                <td class="cell-font-size">{{ date('h:i a', $inbound->inbound_eta) }}</td>
-                <td class="fixed-width-outbound">{{ $inbound->inbound_delivery_option }}</td>
-              </tr>
-            @endforeach
-        </tbody>
+  <table class="fs-table responsive margin-top-20">
+    <thead>
+      <th>Date</th>
+      <th>Carrier</th>
+      <th>Driver</th>
+      <th>Start</th>
+      <th>Truck</th>
+      <th>Trailer</th>
+      <th>Customer(Vendor)</th>
+      <th>Customer PO#</th>
+      <th>TCF PO#</th>
+      <th>Dock/Delivery Time</th>
+      <th>Product</th>
+      <th>Skids</th>
+      <th>Inbound/Outbound</th>
+    </thead>
+    <tbody>
+      @foreach ($inbounds as $inbound)
+      <tr>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_vendor }}</td>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_po_number }}</td>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_customer_po }}</td>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_carrier }}</td>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_product }}</td>
+        <td class="cell-font-size">{{ $inbound->inbound_cases }}</td>
+        <td class="cell-font-size">{{ $inbound->inbound_kg }}</td>
+        <td class="cell-font-size">{{ date('h:i a', $inbound->inbound_eta) }}</td>
+        <td class="fixed-width-outbound">{{ $inbound->inbound_delivery_option }}</td>
 
-    </table>
+        <td data-id="{{ $inbound->id }}">
+							@if( Auth::user()->is_admin )
+							<a class="edit-inbound-btn" href="#" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+							<a class="delete-inbound-btn" href="#" title="Delete"><i class="fa fa-trash fa-lg"></i> </a>
+							@endif
+						</td>
+      </tr>
+      @endforeach
+    </tbody>
+
+  </table>
 </div>
 
 @stop
@@ -53,14 +62,14 @@
 {{ HTML::script('assets/plugins/stupidtable.js') }}
 <script type="text/javascript">
   $(document).ready(function() {
-      //sort table
+    //sort table
     $('.fs-table').stupidtable();
 
     //refresh page every 30 seconds
     setInterval(function() {
       var uricontroller = '{{Request::segment(1)}}';
 
-      if(uricontroller == 'fsf') {
+      if (uricontroller == 'fsf') {
         var rotation = [
           '{{ URL::to("fsf/outbound_v2") }}',
           '{{ URL::to("fsf/inbound_v2") }}',
@@ -93,7 +102,7 @@
       }
 
       var next_rotation = rotation_2.indexOf('{{Request::fullURL() }}') + 1;
-      if(next_rotation > rotation.length +1) next_rotation = 0;
+      if (next_rotation > rotation.length + 1) next_rotation = 0;
       window.location = rotation[next_rotation];
     }, 30000);
 
@@ -101,21 +110,23 @@
     autscrollscreen();
 
     function autscrollscreen() {
-        var screen_height = screen.height;
-        var scrollingUp   = 0;
-        var div_height    = $(".fs-daily").height();
+      var screen_height = screen.height;
+      var scrollingUp = 0;
+      var div_height = $(".fs-daily").height();
 
-        $(".fs-daily").css("max-height", screen_height - 20);
+      $(".fs-daily").css("max-height", screen_height - 20);
 
-        if(div_height > screen_height) {
-            window.setInterval(scrollit, 3000);
+      if (div_height > screen_height) {
+        window.setInterval(scrollit, 3000);
 
-            function scrollit() {
-                if(scrollingUp == 0) {
-                    $('.fs-daily').delay(5000).animate({ scrollTop: $(".fs-daily").scrollTop() + 100 }, 'slow');
-                }
-            }
+        function scrollit() {
+          if (scrollingUp == 0) {
+            $('.fs-daily').delay(5000).animate({
+              scrollTop: $(".fs-daily").scrollTop() + 100
+            }, 'slow');
+          }
         }
+      }
     }
 
   });

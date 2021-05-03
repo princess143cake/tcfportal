@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TCF Scheduler App | @yield('title')</title>
+
+
+
     {{-- Default --}}
     {{ HTML::style('assets/f5/css/normalize.css') }}
     {{ HTML::style('assets/f5/css/foundation.css') }}
@@ -29,6 +32,8 @@
 
     {{-- Modernizr --}}
     {{ HTML::script('assets/f5/js/vendor/modernizr.js') }}
+
+    
 </head>
 <body>
     

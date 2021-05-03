@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Response;
+
 /* All Auth routes / logged in */
 
 
 // Operator Routes
-Route::group(['before' => 'auth'], function() {
+Route::group(['before' => 'auth'], function () {
 
 	Route::get('inbound_outbound', ['before' => 'access_rights', 'uses' => 'InboundController@combined']);
 	// Route::get('ajax/get/schedule', ['before' => 'access_rights', 'uses' => 'InboundController@get_combined_records']);
-	
+	Route::get('/inbound/create', 'InboundController@create');
 
 
 	//Outbound Schedule
@@ -18,7 +20,7 @@ Route::group(['before' => 'auth'], function() {
 	Route::post('outbound_schedule/edit', ['before' => 'csrf', 'uses' => 'OutboundController@edit']);
 	Route::post('outbound_schedule/update', ['before' => 'csrf', 'uses' => 'OutboundController@update']);
 	Route::post('outbound_schedule/sortNumber', ['before' => 'csrf', 'uses' => 'OutboundController@sortNumber']);
-	Route::get('outbound_schedule/print/{id}','OutboundController@print');
+	Route::get('outbound_schedule/print/{id}', 'OutboundController@print');
 	//second phase
 	Route::post('outbound_schedule/insert_stop', ['before' => 'csrf', 'uses' => 'OutboundController@insert_stop']);
 	Route::post('outbound_schedule/delete_stop', ['before' => 'csrf', 'uses' => 'OutboundController@delete_stop']);
@@ -53,13 +55,20 @@ Route::group(['before' => 'auth'], function() {
 
 	//Route::get('production', 'ProductionController@production');
 	Route::post('production/addProduction', ['before' => 'csrf', 'uses' => 'ProductionController@addProduction']);
-	Route::post('production/editProduction',['before' => 'csrf', 'uses' => 'ProductionController@editProduction']);
-	Route::post('production/editProductionStatus',['before' => 'csrf', 'uses' => 'ProductionController@editProductionStatus']);
+	Route::post('production/editProduction', ['before' => 'csrf', 'uses' => 'ProductionController@editProduction']);
+	Route::post('production/editProductionStatus', ['before' => 'csrf', 'uses' => 'ProductionController@editProductionStatus']);
 	Route::post('production/deleteProduction', ['before' => 'csrf', 'uses' => 'ProductionController@deleteProduction']);
 
 	Route::post('manage_user/editSettings', ['before' => 'csrf', 'uses' => 'UserController@editSettings']);
 
 	//fullscreen
+
+	
+	App::missing(function($exception) { //this route return 404 page if url not found
+		return Response::view('errors/404', array(), 404);
+	});
+	Route::get('fs/inbound_outbound', 'MainController@inbound_outbound_fullscreen');
+	Route::get('fs/inbound_outbound/sort_table_column', 'MainController@sort_data_column_list');
 	Route::get('fs/inbound', 'MainController@inbound_fullscreen');
 	Route::get('fs/outbound', 'MainController@outbound_fullscreen');
 
@@ -71,9 +80,9 @@ Route::group(['before' => 'auth'], function() {
 });
 
 // Admin Routes
-Route::group(['before' => 'auth|admin'], function() {
+Route::group(['before' => 'auth|admin'], function () {
 
-	Route::get('test', function() {
+	Route::get('test', function () {
 		return 'test123';
 	});
 
@@ -81,5 +90,4 @@ Route::group(['before' => 'auth|admin'], function() {
 	Route::post('manage_user/addUser', ['before' => 'csrf', 'uses' => 'UserController@addUser']);
 	Route::post('manage_user/deleteUser', ['before' => 'csrf', 'uses' => 'UserController@deleteUser']);
 	Route::post('manage_user/editUser', ['before' => 'csrf', 'uses' => 'UserController@editUser']);
-
 });

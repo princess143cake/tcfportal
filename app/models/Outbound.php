@@ -1,8 +1,8 @@
 <?php
 
 /**
-* Outbound Model
-*/
+ * Outbound Model
+ */
 class Outbound extends Eloquent
 {
 
@@ -21,6 +21,11 @@ class Outbound extends Eloquent
 	public function secondphase()
 	{
 		return $this->hasMany('OutboundSecond')->orderBy('sort_number', 'ASC');
+	}
+
+	public function inbound()
+	{
+		return $this->belongsTo(Inbound::class);
 	}
 	// public function getCreatedAtAttribute($date)
 	// {

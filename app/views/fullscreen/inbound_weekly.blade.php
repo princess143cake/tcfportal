@@ -15,7 +15,7 @@
                     <th class="center-align" colspan="3" >{{date("l F j, Y", strtotime($key))}}</th>
                 </tr>
                 <tr class="hover-day">
-                    <th class="fixed-width">VENDOR</th>
+                    <th class="fixed-width">VENDORs</th>
                     <th class="fixed-width">PRODUCT</th>
                     <th class="fixed-width-xm">KG</th>
                 </tr>
