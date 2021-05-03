@@ -111,13 +111,18 @@ class MainController extends BaseController
 			$inbounds = Inbound::where('schedule', 'like', $dateSelected . '%')->orderBy('schedule', 'ASC')->take(10)->paginate(10);
 			$outbounds = Outbound::where('created_at', 'like', $dateSelected . '%')->orderBy('outbound_start_time', 'ASC')->get();
 
+			$count_inbound = 1;
+			$count_outbound = 1;
+			$countinbound = false;
+
+			return view('fullscreen.inbound_outbound_datalist')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header','count_inbound','count_outbound','countinbound'));
 
 			// $today = date('Y-m-d', strtotime(Input::get('d')));
 			// $date = date('l F j, Y', strtotime(Input::get('d')));
 			// //$nextday = date('Y-m-d', strtotime(Input::get('d').' +1 day'));
 			// $nextday = date('Y-m-d', strtotime(Input::get('d')));
 
-			return view('fullscreen.inbound_outbound_datalist')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header'));
+			//return view('fullscreen.inbound_outbound_datalist')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header'));
 		}
 
 
@@ -135,6 +140,13 @@ class MainController extends BaseController
 			$date = date('l F j, Y', strtotime(Input::get('d')));
 			//$nextday = date('Y-m-d', strtotime(Input::get('d').' +1 day'));
 			$nextday = date('Y-m-d', strtotime(Input::get('d')));
+
+			$count_inbound = 1;
+			$count_outbound = 1;
+			$countinbound = false;
+			return view('fullscreen.inbound_outbound')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header','count_inbound','count_outbound','countinbound'));
+
+
 
 			// return view('fullscreen.inbound_outbound')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header'));
 		} else {

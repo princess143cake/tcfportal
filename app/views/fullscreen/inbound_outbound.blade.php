@@ -114,9 +114,6 @@
 <!-- Data Tables cdn jquery -->
 <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
-<!-- sort cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sortable/0.8.0/js/sortable.min.js" integrity="sha512-DEcSaL0BWApJ//v7ZfqAI04nvK+NQcUVwrrx/l1x7OJgU0Cwbq7e459NBMzLPrm8eLPzAwBtiJJS4AvLZDZ8xA==" crossorigin="anonymous"></script>
-
 
 <!-- <script>
 $(document).ready( function () {
