@@ -1,1 +1,8 @@
 xx
+
+<<<<<<< HEAD
+Beta Task
+=======
+
+Example Branch 
+>>>>>>> 30941daf401d013347831693c966c310855f0912
