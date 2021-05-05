@@ -28,7 +28,7 @@
 
 						<span class="home-btn-text">
 							<h4>{{ $outbound_count }}</h4>
-							OUTBOUND/INBOUND ENTRIES
+							OUTBOUND/INBOUND
 						</span>
 					</a>	
 				</div>

@@ -108,7 +108,7 @@ class MainController extends BaseController
 
 		if (Input::has('selectedDate')) {
 
-			$inbounds = Inbound::where('schedule', 'like', $dateSelected . '%')->orderBy('schedule', 'ASC')->take(10)->paginate(10);
+			$inbounds = Inbound::where('schedule', 'like', $dateSelected . '%')->orderBy('schedule', 'ASC')->get();
 			$outbounds = Outbound::where('created_at', 'like', $dateSelected . '%')->orderBy('outbound_start_time', 'ASC')->get();
 
 			$count_inbound = 1;
@@ -132,8 +132,8 @@ class MainController extends BaseController
 			$nextday = date('Y-m-d', strtotime(' +3 day'));
 		}
 		if (Input::has('d')) {
-			$inbounds = Inbound::where('schedule', 'like', Input::get('d') . '%')->orderBy('schedule', 'ASC')->take(10)->paginate(10);
-			$outbounds = Outbound::where('created_at', 'like', Input::get('d') . '%')->orderBy('outbound_start_time', 'ASC')->take(10)->get();
+			$inbounds = Inbound::where('schedule', 'like', Input::get('d') . '%')->orderBy('schedule', 'ASC')->get();
+			$outbounds = Outbound::where('created_at', 'like', Input::get('d') . '%')->orderBy('outbound_start_time', 'ASC')->get();
 
 
 			$today = date('Y-m-d', strtotime(Input::get('d')));
@@ -150,8 +150,8 @@ class MainController extends BaseController
 
 			// return view('fullscreen.inbound_outbound')->with(compact('inbounds', 'outbounds', 'date', 'nextday', 'today', 'hide_header'));
 		} else {
-			$inbounds = Inbound::orderBy('schedule', 'ASC')->paginate(5);
-			$outbounds = Outbound::orderBy('outbound_start_time', 'ASC')->take(5)->get();
+			$inbounds = Inbound::orderBy('schedule', 'ASC')->take(10)->get();
+			$outbounds = Outbound::orderBy('outbound_start_time', 'ASC')->take(10)->get();
 			$count_inbound = 1;
 			$count_outbound = 1;
 			$countinbound = false;
@@ -182,8 +182,8 @@ class MainController extends BaseController
 
 			
 			
-			$inbounds = Inbound::where('schedule', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->take(5)->get();
-			$outbounds = Outbound::where('created_at', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->take(5)->get();
+			$inbounds = Inbound::where('schedule', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->get();
+			$outbounds = Outbound::where('created_at', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->get();
 
 			
 
@@ -194,8 +194,8 @@ class MainController extends BaseController
 	
 			//dd($column_name);
 		} else{
-			$inbounds = Inbound::where('schedule', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->take(5)->get();
-			$outbounds = Outbound::where('created_at', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->take(5)->get();
+			$inbounds = Inbound::where('schedule', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->get();
+			$outbounds = Outbound::where('created_at', 'like', $schedule . '%')->orderBy($column_name, $sort_type)->get();
 			$count_inbound = 5;
 			$count_outbound = $outbounds->count()+1;
 			$countinbound = false;

@@ -14,7 +14,7 @@
 
     .f2:hover {
 
-        border-color: coral;
+        border-color: red;
 
         opacity: 1.0;
     }
@@ -27,6 +27,15 @@
     tr:hover {
         background-color: #ece1ed;
     }
+
+    td{
+
+        text-transform: capitalize;
+    }
+
+   
+
+
 </style>
 @stop
 
@@ -39,11 +48,14 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />   -->
 
 
-//Data Tables cdn css
+<!-- Data Tables cdn css -->
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 
 
-<a href="/inbound_outbound">
+
+
+
+<a href="inbound_outbound">
     <h4 class="fs-f4">{{ HTML::image('/tcf-logo.jpg', '', array('class' => 'tcf-logo')) }}{{ $date }} Inbound and Outbound Schedule</h4>
 </a>
 
@@ -52,31 +64,27 @@
 <div class="fs-daily p-10">
 
 
-    <div class="col-md-6 px-10 px-10"><input style="width: 200px; " class="f2 pull-right" type="date" name="searchdate" id="searchdate" onchange="handler(event);" /></span></div>
+    <div class="col-md-6 px-10 px-10"><input style="width: 200px; " class="f2 pull-right" type="date" name="searchdate" id="searchdate" onchange="handler(event);" /></div>
     <span style="color:black; margin-top:5px;" class="pull-right ">Search: &nbsp;</span>
 
 
     <table class="fs-table responsive margin-top-20" id="sort-column">
         <thead>
 
-            <th class="column_sort" id="id" data-order="desc" style="cursor:pointer; width:50px;">
-                ID <i id="arrow-down" class="fa fa-caret-down" aria-hidden="true"></i>
-                <i id="arrow-up" class="fa fa-caret-up" aria-hidden="true">
-            </th>
-
-            <th>Date</th>
-            <th>Carrier</th>
-            <th>Driver</th>
-            <th>Start</th>
-            <th>Truck</th>
-            <th>Trailer</th>
-            <th>Customer(Vendor)</th>
-            <th>Customer PO#</th>
-            <th>TCF PO#</th>
-            <th>Dock/Delivery Time</th>
-            <th>Product</th>
+         
+            <th style="width:150px; cursor:pointer;" data-column="Date" data-order="desc">Date&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Carrier&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Driver&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Start&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Truck&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Trailer&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Customer Vendor&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Customer PO#&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">TCF PO#&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Dock/Delivery Time&#9650</th>
+            <th style="cursor:pointer;" data-column="Date" data-order="desc">Product&#9650</th>
             <th>Skids</th>
-            <th>Inbound/Outbound</th>
+            <th>Inbound/Outbound </th>
         </thead>
         <tbody id="inbound-outbound-data">
 
@@ -86,11 +94,7 @@
     </table>
 
 
-    <div id="pagination" style="margin-left: 500px; " class="row  d-flex justify-content-center">
-        <div class="col-sm-12 text-center">
-            {{$inbounds->links()}}
-        </div>
-    </div>
+    
 
 
 
@@ -115,49 +119,125 @@
 <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 
-<!-- <script>
-$(document).ready( function () {
-    $('#sort-column').DataTable();
-} ); 
 
-</script>-->
 
 
 <script>
-    function handler(e) {
 
 
-        //   var query = e.target.value;
+$(document).ready(function() {
 
-        //   alert(query);
+    
+    
 
-        //   if(query != ''){
-
-        //     fields = {
-        // 				date: query
-        //   }
-        //  alert(fields);
-        //                 $.ajax({
-        // 					type: 'post',
-        // 					url: '{{ URL::to("fs/inbound_outbound") }}',
-        // 					data: {
-        // 						fields: fields,
-        // 						_token: '{{ csrf_token() }}',
-        // 						repetitive: repetitive
-        // 					},
-        // 					dataType: 'json',
-        // 					success: function(response) {
-        // 						window.location.reload();
-        // 					}
-        // 				    });
-        //   }
-
-
-
-    }
+});
+   
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
+
+
+        
+
+        $('th').on('click', function(){
+
+         
+         
+
+        var inbound = <?php echo json_encode($inbounds) ?>;
+        var outbound = <?php echo json_encode($outbounds) ?>;
+        // console.log(outbound);
+
+        var column = $(this).data('column');
+		var order = $(this).data('order');
+		var text = $(this).html();
+		text = text.substring(0, text.length - 1);
+
+        //alert(column);
+		if(order == 'desc'){
+			$(this).data('order', "asc"); 
+            // inbound = inbound.sort((a, b) => a + b); // For descending sort
+			inbound = inbound.sort((a,b) => a[column] > b[column] ? 1 : -1);
+            outboundd = outbound.sort((a,b) => a[column] > b[column] ? 1 : -1);
+		
+          
+            text += '&#9660';
+            // inbound.sort((a, b) => b - a); // For descending sort
+            
+
+		}else{
+			$(this).data('order', "desc");
+            // inbound = inbound.sort((a, b) => b - a);
+			//inbound = inbound.sort((a,b) => a[column] < b[column] ? 1 : -1);
+			text += '&#9650';
+            
+            inbound.sort((a, b) => a - b); // For ascending sort
+            outbound.sort((a, b) => a - b); // For ascending sort
+          
+
+		}
+		$(this).html(text);
+		buildTable(inbound,outbound);
+       
+    });
+
+   
+	function buildTable(data, outbound){
+		var table = document.getElementById('inbound-outbound-data');
+		table.innerHTML = '';
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+                            <td>${data[i].schedule}</td>
+                           
+							<td>${data[i].inbound_carrier}</td>
+                            <td>  </td>
+                            <td>${data[i].schedule}</td>
+                            <td>  </td>
+                            <td> </td>
+                            <td>${data[i].inbound_vendor}</td>
+                            <td>${data[i].inbound_customer_po}</td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>${data[i].inbound_product}</td>
+                            <td>  </td>
+                            <td style="color: DarkBlue;"> Inbounded </td>
+							
+					  </tr>`;
+			table.innerHTML += row;
+
+
+		}
+
+        for (var i = 0; i < outbound.length; i++){
+			var row = `<tr>
+                            <td>${outbound[i].schedule}</td>
+                           
+							<td>${outbound[i].inbound_carrier}</td>
+                           
+                            <td>${outbound[i].driver}</td>
+
+                            <td>${outbound[i].outbound_start_time}</td>
+                            <td>${outbound[i].outbound_truck}</td>
+                            <td>${outbound[i].outbound_trailer_number}</td>
+                          
+                            <td>  </td>
+                            <td>  </td>
+                             <td>  </td>
+                             <td>${outbound[i].outbound_start_time}</td>
+                          
+                            <td>  </td>
+                            <td>  </td>
+                           
+                            <td style="color: DarkBlue;"> Outbounded </td>
+							
+					  </tr>`;
+			table.innerHTML += row;
+
+
+		}
+	}
+
+
 
         $("#arrow-up").hide();
         // function fetch_data(sort_type = '', column_name = '') {
@@ -202,14 +282,16 @@ $(document).ready( function () {
         }
 
 
-
+       
 
         $(document).on('click', '.column_sort', function() {
 
 
+    
 
+            //var rows= $('#sort-column tbody tr').length;
           
-
+            // alert(rows);
             //var schedule = $(this).closest('tr').find('td').eq(2).text();
             var schedule = $('#sort-column').find('td:eq(1)').text();
 
@@ -322,7 +404,7 @@ $(document).ready( function () {
 
                     success: function(response) {
                         $('#inbound-outbound-data').html(response);
-                        //window.location.href = 'http://tcfportal.local/fs/inbound_outbound?selectedDate=' + selectedDate;
+                        window.location.href = 'http://tcfportal.local/fs/inbound_outbound?d=' + selectedDate;
                     }
                 });
 

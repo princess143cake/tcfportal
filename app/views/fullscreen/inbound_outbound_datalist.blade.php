@@ -3,22 +3,15 @@
            
             <tr id="inbound">
           
-           
-                <td id="inbound_increment" class="fixed-width-outbound">
-               
-                   
-                    {{ $countinbound == false ? ++$count :  $count_inbound--}}
-                    
-                  
-               </td>
+    
             
                 <td class="fixed-width-outbound" data-schedule="{{ $inbound->schedule }}">{{ $inbound->schedule }}</td>
-                <td class="fixed-width-outbound">  {{ ucfirst(trans($inbound->inbound_carrier)) }}</td>
+                <td class="fixed-width-outbound">  {{ $inbound->inbound_carrier }}</td>
                 <td class="fixed-width-outbound"><span></span></td>
                 <td class="fixed-width-outbound">{{ $inbound->schedule }}</td>
                 <td class="fixed-width-outbound"><span></span></td>
                 <td class="fixed-width-outbound"><span></span></td>
-                <td class="fixed-width-outbound">{{ ucfirst(trans($inbound->inbound_vendor)) }}</td>
+                <td class="fixed-width-outbound">{{ $inbound->inbound_vendor }}</td>
                 <td class="fixed-width-outbound">{{ $inbound->inbound_customer_po }}</td>
                 <td class="fixed-width-outbound"><span></span></td>
                 <td class="fixed-width-outbound"><span></span></td>
@@ -33,10 +26,7 @@
             @foreach ($outbounds  as $count => $outbound)
            
             <tr>
-                <td class="fixed-width-outbound">
-                {{ $countinbound == false ? ++$count :  --$count_outbound }}
-                   
-                </td>
+               
                 <td class="fixed-width-outbound">{{ $outbound->schedule }}</td>
                 <td class="fixed-width-outbound">{{ $outbound->outbound_carrier }}</td>
                 <td class="fixed-width-outbound">{{ $outbound->outbound_driver }}</td>
